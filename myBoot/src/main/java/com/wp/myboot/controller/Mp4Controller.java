@@ -101,7 +101,7 @@ public class Mp4Controller {
 		SpringResult springResult = new SpringResult();
 		try {
 			String randStr=RandomUtil.generateString(10);
-			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "*IKMNHY^2018a");
+			FtpUtils ff=FtpUtils.getSftpUtil("", 22, "testuser", "");
 			Map<String,String> names=new HashMap<String, String>();
 			for (MultipartFile file:multipartFile){
 				String fileName=file.getOriginalFilename();
@@ -164,7 +164,7 @@ public class Mp4Controller {
 			String fileName=multipartFile.getOriginalFilename();
 			InputStream input=multipartFile.getInputStream();
 
-			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "*IKMNHY^2018a");
+			FtpUtils ff=FtpUtils.getSftpUtil("", 22, "testuser", "");
 			ff.uploadByStream("/web/java/apache-tomcat-gooSe-8088/webapps/videos", fileName, input);
 
 			/*把文件名字存起来*/
