@@ -19,7 +19,7 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
 
     Map<String,String> getAppVersionAndUrl();
 
-    int getTotleCount(@Param("type")String type);
+    Integer getTotleCount(@Param("type")String type);
 
     List<Map<String,String>> getImgLink();
 
@@ -28,4 +28,10 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
     Integer saveFileNameMulNew(@Param("fileContentType")String fileContentType, @Param("video")String video, @Param("pic")String pic, @Param("link")String link);
 
     Integer saveFileNameMulNewImg(@Param("fileName")String fileName, @Param("imgLink")String imgLink);
+
+    List<Map<String,String>> findMp4DataByName(@Param("name")String name, @Param("pageStart")Integer pageStart, @Param("pageSize")Integer pageSize);
+
+    Integer getTotleByNameCount(@Param("name")String name);
+
+    List<Map<String,String>> getCateType();
 }

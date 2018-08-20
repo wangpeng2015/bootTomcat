@@ -7,11 +7,18 @@
 		mp4_category m
 	</select>
 
-	<select id="findMp4_data" parameterType="string"
-		resultType="java.util.Map">
-		SELECT dd.id,dd.category,dd.name,dd.img,dd.link 
-		FROM mp4_data dd 
-		where dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+	<select id="findMp4_data" parameterType="string"	resultType="java.util.Map">
+		SELECT dd.id,dd.category,dd.name,dd.img,dd.link
+		FROM mp4_data dd
+		where dd.category LIKE CONCAT(CONCAT('%',#{type},'%')) ORDER BY create_time desc
+		limit ${pageStart},${pageSize}
+	</select>
+
+	<!-- 根据用户名称模糊搜索 -->
+	<select id="findMp4DataByName" parameterType="string"	resultType="java.util.Map">
+		SELECT dd.id,dd.category,dd.name,dd.img,dd.link
+		FROM mp4_data dd
+		where dd.name LIKE CONCAT(CONCAT('%',#{name},'%')) ORDER BY create_time desc
 		limit ${pageStart},${pageSize}
 	</select>
 
@@ -25,6 +32,12 @@
 		SELECT count(1) 
 		FROM mp4_data dd 
 		where dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+	</select>
+
+	<select id="getTotleByNameCount" parameterType="string"	resultType="integer">
+		SELECT count(1)
+		FROM mp4_data dd
+		where dd.name LIKE CONCAT(CONCAT('%',#{name},'%'))
 	</select>
 
 	<insert id="saveFileNameMul">
@@ -48,6 +61,10 @@
 
 	<select id="getImgLink" resultType="java.util.Map">
 		select img,link from mp4_img
+	</select>
+
+	<select id="getCateType" resultType="java.util.Map">
+		select type_id,name from mp4_category
 	</select>
 
 

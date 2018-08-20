@@ -2,7 +2,9 @@ package com.wp.myboot.controller;
 
 import com.wp.myboot.controller.result.SpringResult;
 import com.wp.myboot.entity.UserSeNew;
+import com.wp.myboot.service.Mp4Service;
 import com.wp.myboot.service.UserSeNewService;
+import org.apache.commons.compress.utils.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value="/gooController")
@@ -21,6 +28,9 @@ public class GooController {
 
     @Autowired
     private UserSeNewService userSeNewService;
+
+    @Resource
+    private Mp4Service mp4Service;
 
     /**
      * 首页信息
@@ -38,9 +48,16 @@ public class GooController {
      * @return
      */
     @RequestMapping("/upLoad")
-    public ModelAndView getUploadJsp(){
-        ModelAndView modelAndView=new ModelAndView();
-        modelAndView.setViewName("upload");
+    public ModelAndView getUploadJsp(ModelAndView modelAndView){
+          modelAndView.setViewName("upload");
+//        List<Map<String, String>> list = Lists.newArrayList();
+//        Map<String, String> map=new HashMap<String, String>();
+//        map.put("type_id","123");
+//        map.put("name","123");
+//        list.add(map);map
+
+        List<Map<String, String>> list=mp4Service.getCateType();
+        modelAndView.addObject("movieList",list);
         return modelAndView;
     }
 
@@ -48,7 +65,7 @@ public class GooController {
      * 图片轮播上传界面
      * @return
      */
-    @RequestMapping("/uploadPicture")
+        @RequestMapping("/uploadPicture")
     public ModelAndView getUploadPicture(){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("uploadPicture");

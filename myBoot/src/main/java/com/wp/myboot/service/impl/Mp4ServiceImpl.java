@@ -156,4 +156,36 @@ public class Mp4ServiceImpl implements Mp4Service {
         }
         return springResult;
     }
+
+    /**
+     * 根据名字模糊搜索影片
+     * @param name
+     * @param pageStart
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public SpringResult findMp4DataByName(String name, Integer pageStart, Integer pageSize) {
+        SpringResult springResult = new SpringResult();
+        JSONObject object=new JSONObject();
+        List<Map<String, String>> res=mp4Mapper.findMp4DataByName(name,pageStart,pageSize);
+        object.put("list", res);
+        /*总条数*/
+        int totalCount=mp4Mapper.getTotleByNameCount(name);
+        object.put("totalCount", totalCount);
+        if(object!=null){
+            springResult.setResult(object);
+            springResult.setResultCode("200");
+        }else {
+            springResult.setResult(null);
+            springResult.setResultCode("300");
+        }
+        return springResult;
+    }
+
+    @Override
+    public List<Map<String, String>> getCateType() {
+        List<Map<String, String>> res=mp4Mapper.getCateType();
+        return res;
+    }
 }

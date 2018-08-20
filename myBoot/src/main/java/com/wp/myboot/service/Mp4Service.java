@@ -31,4 +31,19 @@ public interface Mp4Service {
     SpringResult saveFileNameMulNew(String fileContentType, String video, String s, String pic, String s1);
 
     SpringResult saveFileNameMulNewImg(String fileName, String imgLink);
+
+    /**
+     * 根据名字模糊搜索影片
+     * @param name
+     * @param pageStart
+     * @param pageSize
+     * @return
+     */
+    SpringResult findMp4DataByName(String name, Integer pageStart, Integer pageSize);
+
+    /**
+     * 类别加载
+     * @return
+     */
+    List<Map<String,String>> getCateType();
 }

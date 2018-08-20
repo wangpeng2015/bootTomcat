@@ -49,6 +49,22 @@ public class Mp4Controller {
 		springResult = mp4Service.findMp4_data(type,pageStart,pageSize);
 		return springResult;
 	}
+
+
+	/**
+	 * 根据名字模糊搜索movie
+	 * @param name
+	 * @param pageStart
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value="/findMp4DataByName")
+	@ResponseBody
+		public Object findMp4DataByName(String name, Integer pageStart, Integer pageSize){
+		SpringResult springResult = new SpringResult();
+		springResult = mp4Service.findMp4DataByName(name,pageStart,pageSize);
+		return springResult;
+	}
 	
 	@RequestMapping(value="/findMp4Novel")
 	@ResponseBody
@@ -101,7 +117,7 @@ public class Mp4Controller {
 		SpringResult springResult = new SpringResult();
 		try {
 			String randStr=RandomUtil.generateString(10);
-			FtpUtils ff=FtpUtils.getSftpUtil("", 22, "testuser", "");
+			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "");
 			Map<String,String> names=new HashMap<String, String>();
 			for (MultipartFile file:multipartFile){
 				String fileName=file.getOriginalFilename();
@@ -164,7 +180,7 @@ public class Mp4Controller {
 			String fileName=multipartFile.getOriginalFilename();
 			InputStream input=multipartFile.getInputStream();
 
-			FtpUtils ff=FtpUtils.getSftpUtil("", 22, "testuser", "");
+			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "");
 			ff.uploadByStream("/web/java/apache-tomcat-gooSe-8088/webapps/videos", fileName, input);
 
 			/*把文件名字存起来*/

@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -24,18 +27,10 @@
 			<form id="upload" method="post" action="/mp4Controller/uploadMultipartFile" enctype="multipart/form-data">
 		        <div>
 		          <div>
-		          	<%--<select name="fileType" id="fileType">
-		          		<option value="1">视频</option>
-		          	</select>--%>
 		          	 <select name="fileContentType" id="fileContentType">
-		          		 <option value="2">亚洲无码</option>
-		          		 <option value="3">欧美性爱</option>
-						 <option value="4">成人动漫</option>
-						 <option value="5">国产精品</option>
-						 <option value="6">S级女优</option>
-						 <option value="7">自拍偷拍</option>
-						 <option value="8">夫妻同房</option>
-						 <option value="9">开放90后</option>
+						 <c:forEach var="movieType" items="${movieList}"  varStatus="status">
+							 <option value="${movieType.type_id}">${movieType.name}</option>
+						 </c:forEach>
 		          	 </select><br>
 					  视频文件名称:<input type="text" name="filename1" id="filename1"><br>
 					  <input type="file" name="file" id="file"><br>
