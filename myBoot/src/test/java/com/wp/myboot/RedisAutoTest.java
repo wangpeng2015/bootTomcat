@@ -7,14 +7,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RedisAutoTest {
 
-//    @Autowired
-//    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Test
     public void testRedis(){
@@ -29,7 +30,7 @@ public class RedisAutoTest {
         //删除某key
         //redis.delete("key");
 
-//        stringRedisTemplate.opsForValue().set("zzp","bigz");
-//        Assert.assertEquals("bigz",stringRedisTemplate.opsForValue().get("zzp"));
+        stringRedisTemplate.opsForValue().set("zzp","bigz");
+        Assert.assertEquals("bigz",stringRedisTemplate.opsForValue().get("zzp"));
     }
 }

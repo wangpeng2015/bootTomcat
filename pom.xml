@@ -26,7 +26,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<druid>1.0.9</druid>
+        <druid>1.1.10</druid>
 		<dubbo-spring-boot>1.0.0</dubbo-spring-boot>
 	</properties>
 </project>
