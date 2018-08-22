@@ -9,7 +9,7 @@ public interface Mp4Service {
 
     SpringResult getMp4_category();
 
-    SpringResult findMp4_data(String type, Integer pageStart, Integer pageSize);
+    SpringResult findMp4_data(String type,String name, Integer pageStart, Integer pageSize);
 
     SpringResult findMp4Novel();
 

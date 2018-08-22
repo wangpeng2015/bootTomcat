@@ -98,7 +98,7 @@ public class GooController {
 
     /**
      *
-     * @Description:android的登录
+     * @Description:android的登录 未使用
      * @param phone
      * @param passwd
      * @param confirmPass
@@ -169,6 +169,13 @@ public class GooController {
     }
 
 
+    /**
+     *
+     * @Description:android的登录 未使用
+     * @param phoneNumber
+     * @param request
+     * @return
+     */
     @RequestMapping(value="/getYanZhengMa")
     @ResponseBody
     public JSONObject getYanZhengMa(String phoneNumber,HttpServletRequest request){

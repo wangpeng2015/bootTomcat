@@ -1,10 +1,13 @@
 package com.wp.myboot.controller;
 
+import com.boot.commons.utils.DateUtil;
 import com.boot.commons.utils.FtpUtils;
+import com.boot.commons.utils.HttpClient;
 import com.boot.commons.utils.RandomUtil;
 import com.wp.myboot.controller.result.SpringResult;
 import com.wp.myboot.service.Mp4Service;
 import org.apache.commons.fileupload.disk.DiskFileItem;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +22,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value="/mp4Controller")
@@ -44,15 +45,15 @@ public class Mp4Controller {
 
 	@RequestMapping(value="/findMp4Data")
 	@ResponseBody
-	public Object findMp4_data(String type, Integer pageStart, Integer pageSize){
+	public Object findMp4_data(String type, String name,Integer pageStart, Integer pageSize){
 		SpringResult springResult = new SpringResult();
-		springResult = mp4Service.findMp4_data(type,pageStart,pageSize);
+		springResult = mp4Service.findMp4_data(type,name,pageStart,pageSize);
 		return springResult;
 	}
 
 
 	/**
-	 * 根据名字模糊搜索movie
+	 * 根据名字模糊搜索movie 未使用
 	 * @param name
 	 * @param pageStart
 	 * @param pageSize
@@ -117,7 +118,7 @@ public class Mp4Controller {
 		SpringResult springResult = new SpringResult();
 		try {
 			String randStr=RandomUtil.generateString(10);
-			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "");
+			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "*IKMNHY^2018a");
 			Map<String,String> names=new HashMap<String, String>();
 			for (MultipartFile file:multipartFile){
 				String fileName=file.getOriginalFilename();
@@ -180,7 +181,7 @@ public class Mp4Controller {
 			String fileName=multipartFile.getOriginalFilename();
 			InputStream input=multipartFile.getInputStream();
 
-			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "");
+			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "*IKMNHY^2018a");
 			ff.uploadByStream("/web/java/apache-tomcat-gooSe-8088/webapps/videos", fileName, input);
 
 			/*把文件名字存起来*/

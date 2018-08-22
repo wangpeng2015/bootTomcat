@@ -36,10 +36,10 @@ public class Mp4ServiceImpl implements Mp4Service {
     }
 
     @Override
-    public SpringResult findMp4_data(String type, Integer pageStart, Integer pageSize) {
+    public SpringResult findMp4_data(String type,String name, Integer pageStart, Integer pageSize) {
         SpringResult springResult = new SpringResult();
         JSONObject object=new JSONObject();
-        List<Map<String, String>> res=mp4Mapper.findMp4_data(type,pageStart,pageSize);
+        List<Map<String, String>> res=mp4Mapper.findMp4_data(type,name,pageStart,pageSize);
         object.put("list", res);
         /*总条数*/
         int totalCount=mp4Mapper.getTotleCount(type);

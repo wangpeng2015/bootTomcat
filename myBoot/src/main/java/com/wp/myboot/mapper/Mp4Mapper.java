@@ -13,7 +13,7 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
 
     List<Map<String,String>> getMp4_category();
 
-    List<Map<String,String>> findMp4_data(@Param("type")String type,@Param("pageStart")Integer pageStart,@Param("pageSize")Integer pageSize);
+    List<Map<String,String>> findMp4_data(@Param("type")String type,@Param("name")String name,@Param("pageStart")Integer pageStart,@Param("pageSize")Integer pageSize);
 
     List<Map<String,String>> findMp4Novel();
 

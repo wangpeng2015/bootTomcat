@@ -7,10 +7,15 @@
 		mp4_category m
 	</select>
 
-	<select id="findMp4_data" parameterType="string"	resultType="java.util.Map">
+	<select id="findMp4_data" parameterType="string" resultType="java.util.Map">
 		SELECT dd.id,dd.category,dd.name,dd.img,dd.link
 		FROM mp4_data dd
-		where dd.category LIKE CONCAT(CONCAT('%',#{type},'%')) ORDER BY create_time desc
+		where
+		dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+		<if test="name!=null and name!=''">
+			and dd.name LIKE CONCAT(CONCAT('%',#{name},'%'))
+		</if>
+		ORDER BY create_time desc
 		limit ${pageStart},${pageSize}
 	</select>
 
