@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wp.myboot.mapper.GooMapper" >
+
+	<insert id="saveSignUserMsgDao" parameterType="string">
+		insert into user_Se (username,password,tuijianCode,create_date,recharge_money_endDate) values(#{name},#{passwd},#{tuijianCode},NOW(),DATE_ADD(NOW(),INTERVAL 30 MINUTE))
+	</insert>
+
+	<select id="findUserByName" parameterType="string" resultType="java.util.Map">
+		SELECT id from user_Se
+		where 1=1
+		and username=#{name}
+	</select>
+
+</mapper>
