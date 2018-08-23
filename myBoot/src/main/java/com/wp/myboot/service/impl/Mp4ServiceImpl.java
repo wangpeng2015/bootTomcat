@@ -42,7 +42,7 @@ public class Mp4ServiceImpl implements Mp4Service {
         List<Map<String, String>> res=mp4Mapper.findMp4_data(type,name,pageStart,pageSize);
         object.put("list", res);
         /*总条数*/
-        int totalCount=mp4Mapper.getTotleCount(type);
+        int totalCount=mp4Mapper.getTotleCount(type,name);
         object.put("totalCount", totalCount);
         if(object!=null){
             springResult.setResult(object);

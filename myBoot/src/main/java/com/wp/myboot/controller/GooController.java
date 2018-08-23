@@ -98,7 +98,7 @@ public class GooController {
 
     /**
      *
-     * @Description:android的登录 未使用
+     * @Description:android的登录
      * @param phone
      * @param passwd
      * @param confirmPass
@@ -171,7 +171,7 @@ public class GooController {
 
     /**
      *
-     * @Description:android的登录 未使用
+     * @Description:android的登录
      * @param phoneNumber
      * @param request
      * @return
@@ -198,7 +198,7 @@ public class GooController {
             paramMap.put("account", "17199550092");
             paramMap.put("password", "123456");
             paramMap.put("mobile", phoneNumber.trim());
-            paramMap.put("content", "【小小播】验证码为:"+ran);
+            paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
             paramMap.put("sendTime", "");
             paramMap.put("extno", "");
 //			    response = SmsDemo.sendSms(phoneNumber,ran);

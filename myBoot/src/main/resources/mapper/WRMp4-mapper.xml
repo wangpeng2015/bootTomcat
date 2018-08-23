@@ -37,6 +37,9 @@
 		SELECT count(1) 
 		FROM mp4_data dd 
 		where dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+		<if test="name!=null and name!=''">
+			and dd.name LIKE CONCAT(CONCAT('%',#{name},'%'))
+		</if>
 	</select>
 
 	<select id="getTotleByNameCount" parameterType="string"	resultType="integer">
