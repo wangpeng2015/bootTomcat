@@ -11,7 +11,9 @@
 		SELECT dd.id,dd.category,dd.name,dd.img,dd.link
 		FROM mp4_data dd
 		where
+		<if test="type!=null and type!=''">
 		dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+		</if>
 		<if test="name!=null and name!=''">
 			and dd.name LIKE CONCAT(CONCAT('%',#{name},'%'))
 		</if>
@@ -36,7 +38,10 @@
 		resultType="integer">
 		SELECT count(1) 
 		FROM mp4_data dd 
-		where dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+		where
+		<if test="type!=null and type!=''">
+			dd.category LIKE CONCAT(CONCAT('%',#{type},'%'))
+		</if>
 		<if test="name!=null and name!=''">
 			and dd.name LIKE CONCAT(CONCAT('%',#{name},'%'))
 		</if>
