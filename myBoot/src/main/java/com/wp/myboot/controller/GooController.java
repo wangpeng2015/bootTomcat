@@ -257,7 +257,7 @@ public class GooController {
             Calendar cal=Calendar.getInstance();
             int time=cal.get(Calendar.HOUR_OF_DAY);
             log.info("--------------------------------------------------------------------------------------------------");
-            if(time>9 || time<18){
+            if(time>Constants.startTime || time<Constants.endTime){
                 Map<String, Object> paramMap = new HashMap<String, Object>();
                 paramMap.put("action", "send");
                 paramMap.put("userid", Constants.xishi_userid);
