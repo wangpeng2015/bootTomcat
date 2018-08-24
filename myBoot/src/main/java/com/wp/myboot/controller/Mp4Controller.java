@@ -1,13 +1,10 @@
 package com.wp.myboot.controller;
 
-import com.boot.commons.utils.DateUtil;
 import com.boot.commons.utils.FtpUtils;
-import com.boot.commons.utils.HttpClient;
 import com.boot.commons.utils.RandomUtil;
+import com.wp.myboot.common.Constants;
 import com.wp.myboot.controller.result.SpringResult;
 import com.wp.myboot.service.Mp4Service;
-import org.apache.commons.fileupload.disk.DiskFileItem;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value="/mp4Controller")
@@ -118,7 +115,7 @@ public class Mp4Controller {
 		SpringResult springResult = new SpringResult();
 		try {
 			String randStr=RandomUtil.generateString(10);
-			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "*IKMNHY^2018a");
+			FtpUtils ff=FtpUtils.getSftpUtil(Constants.Ichengyun_640661, Constants.Ichengyun_port, Constants.Ichengyun_userName, Constants.Ichengyun_password);
 			Map<String,String> names=new HashMap<String, String>();
 			for (MultipartFile file:multipartFile){
 				String fileName=file.getOriginalFilename();
@@ -181,7 +178,7 @@ public class Mp4Controller {
 			String fileName=multipartFile.getOriginalFilename();
 			InputStream input=multipartFile.getInputStream();
 
-			FtpUtils ff=FtpUtils.getSftpUtil("640661.ichengyun.net", 22, "testuser", "*IKMNHY^2018a");
+			FtpUtils ff=FtpUtils.getSftpUtil(Constants.Ichengyun_640661, Constants.Ichengyun_port, Constants.Ichengyun_userName, Constants.Ichengyun_password);
 			ff.uploadByStream("/web/java/apache-tomcat-gooSe-8088/webapps/videos", fileName, input);
 
 			/*把文件名字存起来*/

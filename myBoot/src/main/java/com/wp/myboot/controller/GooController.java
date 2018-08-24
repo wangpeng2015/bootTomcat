@@ -1,30 +1,33 @@
 package com.wp.myboot.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.boot.commons.utils.Constant;
 import com.boot.commons.utils.HttpClient;
 import com.boot.commons.utils.XmlUtil;
 import com.wp.myboot.RedisSessionConfig.RedisUtil;
+import com.wp.myboot.common.Constants;
 import com.wp.myboot.controller.result.SpringResult;
 import com.wp.myboot.entity.UserSeNew;
 import com.wp.myboot.service.GooService;
 import com.wp.myboot.service.Mp4Service;
 import com.wp.myboot.service.UserSeNewService;
-import org.apache.commons.compress.utils.Lists;
+import com.wp.myboot.sms_253.ChuangLanSmsUtil;
+import com.wp.myboot.sms_253.request.SmsSendRequest;
+import com.wp.myboot.sms_253.response.SmsSendResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,12 +174,12 @@ public class GooController {
 
     /**
      *
-     * @Description:android的登录
+     * @Description:android的登录   企业信使运营管理平台 350元  5000条
      * @param phoneNumber
      * @param request
      * @return
      */
-    @RequestMapping(value="/getYanZhengMa")
+    //@RequestMapping(value="/getYanZhengMa")
     @ResponseBody
     public JSONObject getYanZhengMa(String phoneNumber,HttpServletRequest request){
         log.info("--------------获取验证码---------------");
@@ -194,9 +197,9 @@ public class GooController {
             log.info("验证码--"+phoneNumber+"--"+ran);
             Map<String, Object> paramMap = new HashMap<String, Object>();
             paramMap.put("action", "send");
-            paramMap.put("userid", "426");
-            paramMap.put("account", "17199550092");
-            paramMap.put("password", "123456");
+            paramMap.put("userid", Constants.xishi_userid);
+            paramMap.put("account", Constants.xishi_account);
+            paramMap.put("password", Constants.xishi_password);
             paramMap.put("mobile", phoneNumber.trim());
             paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
             paramMap.put("sendTime", "");
@@ -204,7 +207,7 @@ public class GooController {
 //			    response = SmsDemo.sendSms(phoneNumber,ran);
             log.info("短信接口返回的数据----------------");
             //查明细
-            String xml= HttpClient.doPostHp("http://47.105.104.185:8088/sms.aspx",paramMap);
+            String xml= HttpClient.doPostHp(Constants.url_xinshi,paramMap);
 			      /*返回状态值：成功返回Success 失败返回：Faild*/
             String res= XmlUtil.getValueByNameXml(xml,"returnstatus");
             log.info("------------------"+phoneNumber+"-------"+res+"-------------------------");
@@ -224,4 +227,105 @@ public class GooController {
         }
         return obj;
     }
+
+
+    /**
+     *
+     * @Description:android的登录   253云通讯平台
+     * @param phoneNumber
+     * @param request
+     * @return
+     */
+    @RequestMapping(value="/getYanZhengMa")
+    @ResponseBody
+    public JSONObject getYanZhengMa2(String phoneNumber,HttpServletRequest request){
+        log.info("--------------获取验证码---------------");
+        JSONObject obj = new JSONObject();
+        if(StringUtils.isBlank(phoneNumber)  || phoneNumber.length()!=11){
+            obj.put("message","电话信息为空或者格式有问题");
+            obj.put("resultCode","300");
+            return obj;
+        }
+
+        try {
+            //存session
+            int ran=(int)((Math.random()*9+1)*10000);
+            log.info("验证码--"+phoneNumber+"--"+ran);
+            //发短信
+            HttpSession session=request.getSession();
+//          判断时间段
+            Calendar cal=Calendar.getInstance();
+            int time=cal.get(Calendar.HOUR_OF_DAY);
+            log.info("--------------------------------------------------------------------------------------------------");
+            if(time>9 || time<18){
+                Map<String, Object> paramMap = new HashMap<String, Object>();
+                paramMap.put("action", "send");
+                paramMap.put("userid", Constants.xishi_userid);
+                paramMap.put("account", Constants.xishi_account);
+                paramMap.put("password", Constants.xishi_password);
+                paramMap.put("mobile", phoneNumber.trim());
+                paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
+                paramMap.put("sendTime", "");
+                paramMap.put("extno", "");
+//			    response = SmsDemo.sendSms(phoneNumber,ran);
+                log.info("短信接口返回的数据----------------");
+                //查明细
+                String xml= HttpClient.doPostHp(Constants.url_xinshi,paramMap);
+                /*返回状态值：成功返回Success 失败返回：Faild*/
+                String res= XmlUtil.getValueByNameXml(xml,"returnstatus");
+                log.info("------------------"+phoneNumber+"-------"+res+"-------------------------");
+                if("Success".equals(res)){
+                    session.setAttribute(phoneNumber, ran);
+                    redisUtil.set(phoneNumber,String.valueOf(ran),Long.valueOf("300"));
+                }else{
+                    log.info("短信发送失败");
+                    obj.put("message","短信发送失败");
+                    obj.put("resultCode","400");
+                }
+            }else {
+                log.info("--------------------------------------------------------------------------------------------------");
+                //短信发送的URL 请登录zz.253.com 获取完整的URL接口信息
+//                String smsSingleRequestServerUrl = "https://smssh1.253.com/msg/send/json";
+                // 设置您要发送的内容：其中“【】”中括号为运营商签名符号，多签名内容前置添加提交
+                String msg = "【小小播】尊敬的用户,验证码为"+ran+",该验证码5分钟之内有效";
+                //手机号码
+                String phone = phoneNumber;
+                //状态报告
+                String report= "true";
+
+                SmsSendRequest smsSingleRequest = new SmsSendRequest(Constants.account, Constants.password, msg, phone,report);
+
+                String requestJson = JSON.toJSONString(smsSingleRequest);
+
+                System.out.println("before request string is: " + requestJson);
+
+                String response = ChuangLanSmsUtil.sendSmsByPost(Constants.url_253_smsSingleRequestServerUrl, requestJson);
+
+                System.out.println("response after request result is :" + response);
+
+                SmsSendResponse smsSingleResponse = JSON.parseObject(response, SmsSendResponse.class);
+
+                System.out.println("response  toString is :" + smsSingleResponse);
+                log.info("--------------------------------------------------------------------------------------------------");
+                //查明细
+                if("0".equals(smsSingleResponse.getCode())){
+                    session.setAttribute(phoneNumber, ran);
+                    redisUtil.set(phoneNumber,String.valueOf(ran),Long.valueOf("300"));
+                }else{
+                    log.info("短信发送失败");
+                    obj.put("message","短信发送失败");
+                    obj.put("resultCode","400");
+                }
+            }
+        } catch (Exception e) {
+            log.info("短信发送失败");
+            log.info(e.toString());
+            obj.put("message","短信发送失败");
+            obj.put("resultCode","400");
+        }
+        return obj;
+    }
+
+
+
 }
