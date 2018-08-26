@@ -46,4 +46,11 @@ public interface Mp4Service {
      * @return
      */
     List<Map<String,String>> getCateType();
+
+    /**
+     * 获取反馈的用户信息
+     * @param phoneNumber
+     * @return
+     */
+    Integer saveFeedback(String phoneNumber,String reason,String createTime);
 }

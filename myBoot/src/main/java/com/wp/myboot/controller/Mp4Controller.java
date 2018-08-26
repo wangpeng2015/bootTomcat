@@ -1,5 +1,6 @@
 package com.wp.myboot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.boot.commons.utils.FtpUtils;
 import com.boot.commons.utils.RandomUtil;
 import com.wp.myboot.common.Constants;
@@ -192,6 +193,31 @@ public class Mp4Controller {
 			springResult.setResultCode("200");
 		}
 		return springResult;
+	}
+
+
+	/**
+	 *
+	 * 保存用户返回信息
+	 * @param phoneNumber
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/saveFeedback")
+	@ResponseBody
+	public JSONObject saveFeedback(String phoneNumber,String reason, String createTime,HttpServletRequest request){
+		JSONObject obj = new JSONObject();
+		Integer res=mp4Service.saveFeedback(phoneNumber,reason,createTime);
+		if(res>0){
+			obj.put("message","保存成功");
+			obj.put("code","200");
+			obj.put("result",res);
+		}else{
+			obj.put("message","保存失败");
+			obj.put("code","300");
+			obj.put("result",null);
+		}
+		return obj;
 	}
 
 }

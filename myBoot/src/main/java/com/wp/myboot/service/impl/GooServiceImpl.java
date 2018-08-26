@@ -26,7 +26,7 @@ public class GooServiceImpl implements GooService {
 			Map<String, String> uu=gooMapper.findUserByName(name.trim());
 			//已经存在用户
 			if(uu!=null && uu.size()>0){
-				return -1;
+				return -2;
 			}else{
 				//插入信息
 				int res=gooMapper.saveSignUserMsgDao(name,passwd,confirmPass,tuijianCode);

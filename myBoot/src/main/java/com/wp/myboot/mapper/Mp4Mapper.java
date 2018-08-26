@@ -34,4 +34,6 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
     Integer getTotleByNameCount(@Param("name")String name);
 
     List<Map<String,String>> getCateType();
+
+    Integer saveFeedback(@Param("phoneNumber")String phoneNumber, @Param("reason")String reason, @Param("createTime")String createTime);
 }

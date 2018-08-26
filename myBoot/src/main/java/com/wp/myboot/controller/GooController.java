@@ -2,7 +2,6 @@ package com.wp.myboot.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.boot.commons.utils.Constant;
 import com.boot.commons.utils.HttpClient;
 import com.boot.commons.utils.XmlUtil;
 import com.wp.myboot.RedisSessionConfig.RedisUtil;
@@ -129,12 +128,12 @@ public class GooController {
             obj.put("resultCode","300");
             return obj;
         }
-        HttpSession session=request.getSession();
-        System.out.println(session.getId());
-        Object yanzhengma=session.getAttribute(phone);
+        //HttpSession session=request.getSession();
+        //System.out.println(session.getId());
+        //Object yanzhengma=session.getAttribute(phone);
         String ranTime=(String)redisUtil.get(phone);
-        yanzhengma=yanzhengma.toString();
-        yanzhengma=ranTime;
+        //yanzhengma=yanzhengma.toString();
+        String yanzhengma=ranTime;
         if(yanzhengma==null || !yanzhengma.equals(code) || yanzhengma.equals("")){
             obj.put("message","验证码有误");
             obj.put("resultCode","300");
@@ -164,7 +163,11 @@ public class GooController {
             obj.put("message","注册成功");
             obj.put("resultCode","200");
             return obj;
-        }else {
+        }else if(res==-2){
+            obj.put("message","该用户已经注册");
+            obj.put("resultCode","300");
+            return obj;
+        }else{
             obj.put("message","注册失败");
             obj.put("resultCode","300");
             return obj;
@@ -212,7 +215,7 @@ public class GooController {
             String res= XmlUtil.getValueByNameXml(xml,"returnstatus");
             log.info("------------------"+phoneNumber+"-------"+res+"-------------------------");
             if("Success".equals(res)){
-                session.setAttribute(phoneNumber, ran);
+                //session.setAttribute(phoneNumber, ran);
                 redisUtil.set(phoneNumber,String.valueOf(ran),Long.valueOf("300"));
             }else{
                 log.info("短信发送失败");
@@ -257,7 +260,7 @@ public class GooController {
             Calendar cal=Calendar.getInstance();
             int time=cal.get(Calendar.HOUR_OF_DAY);
             log.info("--------------------------------------------------------------------------------------------------");
-            if(time>Constants.startTime || time<Constants.endTime){
+            if(time>Constants.startTime && time<Constants.endTime){
                 Map<String, Object> paramMap = new HashMap<String, Object>();
                 paramMap.put("action", "send");
                 paramMap.put("userid", Constants.xishi_userid);

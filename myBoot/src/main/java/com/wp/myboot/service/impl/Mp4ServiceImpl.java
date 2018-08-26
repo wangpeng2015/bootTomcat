@@ -188,4 +188,14 @@ public class Mp4ServiceImpl implements Mp4Service {
         List<Map<String, String>> res=mp4Mapper.getCateType();
         return res;
     }
+
+    @Override
+    public Integer saveFeedback(String phoneNumber,String reason,String createTime) {
+        Integer res=mp4Mapper.saveFeedback(phoneNumber,reason,createTime);
+        if(res>0){
+            return 1;
+        }else {
+            return -1;
+        }
+    }
 }

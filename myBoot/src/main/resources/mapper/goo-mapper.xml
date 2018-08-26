@@ -3,11 +3,11 @@
 <mapper namespace="com.wp.myboot.mapper.GooMapper" >
 
 	<insert id="saveSignUserMsgDao" parameterType="string">
-		insert into user_Se (username,password,tuijianCode,create_date,recharge_money_endDate) values(#{name},#{passwd},#{tuijianCode},NOW(),DATE_ADD(NOW(),INTERVAL 30 MINUTE))
+		insert into user_Se_new (username,password,tuijianCode,create_date,recharge_money_endDate) values(#{name},#{passwd},#{tuijianCode},NOW(),DATE_ADD(NOW(),INTERVAL 30 MINUTE))
 	</insert>
 
 	<select id="findUserByName" parameterType="string" resultType="java.util.Map">
-		SELECT id from user_Se
+		SELECT id from user_Se_new
 		where 1=1
 		and username=#{name}
 	</select>

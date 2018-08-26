@@ -2,12 +2,14 @@ package com.wp.myboot;
 
 
 import com.wp.myboot.RedisSessionConfig.RedisUtil;
+import com.wp.myboot.service.Mp4Service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -16,6 +18,10 @@ public class RedisAutoTest {
 
     @Autowired
     private RedisUtil redisUtil;
+
+
+    @Resource
+    private Mp4Service mp4Service;
 
     @Test
     public void testRedis(){
@@ -35,5 +41,11 @@ public class RedisAutoTest {
 
         //10秒
         redisUtil.set("name","wangpeng",Long.valueOf("10"));
+    }
+
+
+    @Test
+    public void testaveFeedback(){
+        mp4Service.saveFeedback("18300247760","sdfhbsadfhbsadhfbasdf","2018-09-01 00:00:00");
     }
 }

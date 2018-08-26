@@ -80,5 +80,9 @@
 		select type_id,name from mp4_category
 	</select>
 
+	<insert id="saveFeedback">
+		insert into feedback (phoneNumber,remarks,dete_s) values (#{phoneNumber},#{reason},#{createTime})
+	</insert>
+
 
 </mapper>
