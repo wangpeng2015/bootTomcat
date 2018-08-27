@@ -61,7 +61,6 @@ public class WechatPayController {
 
     }
 
-
     public static String getIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
         if(StringUtils.isNotEmpty(ip) && !"unKnown".equalsIgnoreCase(ip)){
@@ -79,7 +78,4 @@ public class WechatPayController {
         }
         return request.getRemoteAddr();
     }
-
-
-
 }

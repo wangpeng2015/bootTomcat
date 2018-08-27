@@ -42,6 +42,7 @@ public class WechatCallbcak {
             while ((str = bufferedReader.readLine()) != null) {
                 builder.append(str);
             }
+            log.info(""+builder.toString());
             Map<String,String> map=new HashMap<String,String>();
             if(!org.springframework.util.StringUtils.isEmpty(builder)){
                 String[] AttayStr=builder.toString().split("&");
