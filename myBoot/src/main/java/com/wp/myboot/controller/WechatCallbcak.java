@@ -1,6 +1,8 @@
 package com.wp.myboot.controller;
 
 
+import com.jcraft.jsch.HASH;
+import com.wp.myboot.service.Mp4Service;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,48 +12,70 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value="/wechatCallbcak")
 public class WechatCallbcak {
-
     private final Logger log = LoggerFactory.getLogger(WechatCallbcak.class);
 
+    private Mp4Service mp4Service;
+
+    /**
+     * 微信支付回调
+     * @param request
+     * @param response
+     */
     @RequestMapping(value="/wechatPayCallback")
     @ResponseBody
     public void wechat_pay(HttpServletRequest request, HttpServletResponse response){
         log.info("微信服务器发来支付成功通知");
-        OutputStream writer = null;
-        boolean flag = false;
-        String backxmlInfo = "";
-        response.setContentType("text/xml");
-        response.setCharacterEncoding("UTF-8");
+        InputStreamReader inputStreamReader;
+        BufferedReader bufferedReader;
         try {
-            InputStream reader = request.getInputStream();
-            int count = 0;
-            byte[] buffer = new byte[1024];
-            StringBuilder inputString = new StringBuilder();
-            while ((count = reader.read(buffer, 0, 1024)) > 0) {
-                inputString.append(new String(buffer, 0, count, "UTF-8"));
+            inputStreamReader = new InputStreamReader(request.getInputStream(),"UTF-8");
+            bufferedReader = new BufferedReader(inputStreamReader);
+            String str = null;
+            StringBuilder builder=new StringBuilder();
+            while ((str = bufferedReader.readLine()) != null) {
+                builder.append(str);
             }
-            try {
-                writer = response.getOutputStream();
-                if (reader != null) {
-                    reader.close();
+            Map<String,String> map=new HashMap<String,String>();
+            if(!org.springframework.util.StringUtils.isEmpty(builder)){
+                String[] AttayStr=builder.toString().split("&");
+                for (int i=0;i<AttayStr.length;i++){
+                    String[] qqqU=AttayStr[i].split("=");
+                    map.put(qqqU[0],qqqU[1]);
                 }
-
-                log.info("----[微信回调]接收到的报文---" + inputString.toString());
-
-                if (!StringUtils.isEmpty(inputString.toString())) {
-
+                log.info("map集合:"+map.toString());
+                //查询出订单信息
+                Map<String,String>  order=mp4Service.findMp4OrderInfo(map.get("out_trade_no"));
+                if(order!=null){
+                    //更新订单并且更该用户时间
+                  mp4Service.updateMap4Order(order.get("trade_order"));
+                  //判断重置金额
+                  int money= Integer.valueOf(order.get("total_fee"));
+                  //18元
+//                  if(1800==money){
+//                      mp4Service.updateUserTime(order.get("phoneNumber"));
+//                  }else if(18800==money){
+//                      mp4Service.updateUserTime(order.get("phoneNumber"));
+//                  }
+                    if(1==money){
+                        int time=30;
+                        mp4Service.updateUserTime(order.get("phoneNumber"),time);
+                    }else if(2==money){
+                        int time=36500;
+                        mp4Service.updateUserTime(order.get("phoneNumber"),time);
+                    }
                 }
-            }catch (Exception e){
-
             }
-        }catch (Exception e){
-
+            bufferedReader.close();
+            inputStreamReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }

@@ -2,6 +2,7 @@ package com.wp.myboot.service;
 
 import com.wp.myboot.controller.result.SpringResult;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,4 +54,31 @@ public interface Mp4Service {
      * @return
      */
     Integer saveFeedback(String phoneNumber,String reason,String createTime);
+
+    /**
+     * 保存订单流水
+     * @param out_trade_no
+     * @param total_fee
+     * @param currDate
+     */
+    Integer saveOrder(String phoneNumber,String out_trade_no, String total_fee, String currDate);
+
+    /**
+     * 发现订单
+     * @param out_trade_no
+     * @return
+     */
+    Map<String,String> findMp4OrderInfo(String out_trade_no);
+
+    /**
+     * 更新订单时间
+     * @param trade_order
+     */
+    Integer updateMap4Order(String trade_order);
+
+    /**
+     * 更新用户时间
+     * @param phoneNumber
+     */
+    Integer updateUserTime(String phoneNumber,int time);
 }

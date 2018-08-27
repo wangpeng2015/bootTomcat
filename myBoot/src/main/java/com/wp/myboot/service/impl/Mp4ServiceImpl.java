@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -197,5 +198,39 @@ public class Mp4ServiceImpl implements Mp4Service {
         }else {
             return -1;
         }
+    }
+
+    @Override
+    public Integer saveOrder(String phoneNumber,String out_trade_no, String total_fee, String currDate) {
+        Integer res=mp4Mapper.saveOrder(phoneNumber,out_trade_no,total_fee,currDate);
+        if(res>0){
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
+    @Override
+    public Map<String, String> findMp4OrderInfo(String out_trade_no) {
+        Map<String, String> order=mp4Mapper.findMp4OrderInfo(out_trade_no);
+        return order;
+    }
+
+    /**
+     * 更新订单
+     * @param trade_order
+     */
+    @Override
+    public Integer updateMap4Order(String trade_order) {
+        return mp4Mapper.updateMap4Order(trade_order);
+    }
+
+    /**
+     * 更新用户时间
+     * @param phoneNumber
+     */
+    @Override
+    public Integer updateUserTime(String phoneNumber,int time) {
+        return mp4Mapper.updateUserTime(phoneNumber,time);
     }
 }

@@ -4,6 +4,7 @@ import com.boot.commons.entity.CommonMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +37,12 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
     List<Map<String,String>> getCateType();
 
     Integer saveFeedback(@Param("phoneNumber")String phoneNumber, @Param("reason")String reason, @Param("createTime")String createTime);
+
+    Integer saveOrder(@Param("phoneNumber")String phoneNumber,@Param("out_trade_no")String out_trade_no, @Param("total_fee")String total_fee, @Param("currDate")String currDate);
+
+    Map<String,String> findMp4OrderInfo(@Param("StringtradeOrder")String tradeOrder);
+
+    Integer updateMap4Order(@Param("trade_order")String trade_order);
+
+    Integer updateUserTime(@Param("phoneNumber")String phoneNumber,@Param("time")int time);
 }

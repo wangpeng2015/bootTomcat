@@ -84,5 +84,19 @@
 		insert into feedback (phoneNumber,remarks,dete_s) values (#{phoneNumber},#{reason},#{createTime})
 	</insert>
 
+	<insert id="saveOrder">
+		insert into mp4_order (phoneNumber,trade_order,total_fee,status,create_time) values (#{phoneNumber},#{out_trade_no},#{total_fee},0,#{currDate})
+	</insert>
 
+	<select id="findMp4OrderInfo" resultType="java.util.Map">
+		SELECT phoneNumber,trade_order,total_fee,status FROM  mp4_order where trade_order=#{StringtradeOrder} limit 1
+	</select>
+
+	<update id="updateMap4Order">
+		update mp4_order set status=1 WHERE trade_order=#{trade_order}
+	</update>
+
+	<update id="updateUserTime">
+		update user_Se_new set recharge_money_endDate=DATE_ADD(NOW,#{time}),recharge_money_update_Date=NOW() where phoneNumber=#{phoneNumber}
+	</update>
 </mapper>
