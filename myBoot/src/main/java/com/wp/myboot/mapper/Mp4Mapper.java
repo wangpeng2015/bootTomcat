@@ -40,7 +40,7 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
 
     Integer saveOrder(@Param("phoneNumber")String phoneNumber,@Param("out_trade_no")String out_trade_no, @Param("total_fee")String total_fee, @Param("currDate")String currDate);
 
-    Map<String,String> findMp4OrderInfo(@Param("StringtradeOrder")String tradeOrder);
+    Map<String,String> findMp4OrderInfo(@Param("tradeOrder")String tradeOrder);
 
     Integer updateMap4Order(@Param("trade_order")String trade_order);
 

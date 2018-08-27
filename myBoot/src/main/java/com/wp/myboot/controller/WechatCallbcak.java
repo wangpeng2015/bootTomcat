@@ -6,7 +6,10 @@ import com.wp.myboot.service.Mp4Service;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,6 +24,7 @@ import java.util.Map;
 public class WechatCallbcak {
     private final Logger log = LoggerFactory.getLogger(WechatCallbcak.class);
 
+    @Autowired
     private Mp4Service mp4Service;
 
     /**
@@ -30,6 +34,7 @@ public class WechatCallbcak {
      */
     @RequestMapping(value="/wechatPayCallback")
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
     public void wechat_pay(HttpServletRequest request, HttpServletResponse response){
         log.info("微信服务器发来支付成功通知");
         InputStreamReader inputStreamReader;
@@ -42,7 +47,7 @@ public class WechatCallbcak {
             while ((str = bufferedReader.readLine()) != null) {
                 builder.append(str);
             }
-            log.info(""+builder.toString());
+            log.info("======================报文内容==================="+builder.toString());
             Map<String,String> map=new HashMap<String,String>();
             if(!org.springframework.util.StringUtils.isEmpty(builder)){
                 String[] AttayStr=builder.toString().split("&");
@@ -71,6 +76,7 @@ public class WechatCallbcak {
                         int time=36500;
                         mp4Service.updateUserTime(order.get("phoneNumber"),time);
                     }
+                    log.info("=====================回调成功================");
                 }
             }
             bufferedReader.close();

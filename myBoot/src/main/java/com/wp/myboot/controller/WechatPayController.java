@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +32,7 @@ public class WechatPayController {
 
     @RequestMapping(value="/wechat_pay")
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
     public void wechat_pay(String userPhoneNumber,HttpServletRequest request,HttpServletResponse response){
 
         String ip=getIp(request);
@@ -50,7 +53,7 @@ public class WechatPayController {
         String preStr = buf.toString();
         String signRecieve = MD5.sign(preStr, "&key=" + key, "utf-8");
         try {
-            String httUrl = "http://weixin.cf90v5.cn/platform/pay/unifiedorder/video?sign=" + signRecieve + "&" + preStr;
+            String httUrl = "http://weixin.06302s.cn/platform/pay/unifiedorder/video?sign=" + signRecieve + "&" + preStr;
             //保存订单
             mp4Service.saveOrder(userPhoneNumber,params.get("out_trade_no"),params.get("total_fee"), DateUtil.getCurrDate(DateUtil.FORMAT_ONE));
             //跳转

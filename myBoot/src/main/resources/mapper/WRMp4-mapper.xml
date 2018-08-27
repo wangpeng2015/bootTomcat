@@ -89,14 +89,14 @@
 	</insert>
 
 	<select id="findMp4OrderInfo" resultType="java.util.Map">
-		SELECT phoneNumber,trade_order,total_fee,status FROM  mp4_order where trade_order=#{StringtradeOrder} limit 1
+		SELECT phoneNumber,trade_order,total_fee,status FROM  mp4_order where trade_order=#{tradeOrder} limit 1
 	</select>
 
 	<update id="updateMap4Order">
-		update mp4_order set status=1 WHERE trade_order=#{trade_order}
+		update mp4_order set status=0 WHERE trade_order=#{trade_order}
 	</update>
 
 	<update id="updateUserTime">
-		update user_Se_new set recharge_money_endDate=DATE_ADD(NOW,#{time}),recharge_money_update_Date=NOW() where phoneNumber=#{phoneNumber}
+		update user_Se_new set recharge_money_endDate=DATE_ADD(NOW(),INTERVAL #{time} DAY),recharge_money_update_Date=NOW() where username=#{phoneNumber}
 	</update>
 </mapper>
