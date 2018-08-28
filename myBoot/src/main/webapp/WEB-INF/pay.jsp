@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-lg-12">
                 <a class="navbar-brand">
-                    小小播会员充值
+                    小小播会员充值,输入手机号，等待2-3秒会检测是否已经注册
                 </a>
             </div>
 			<div class="divider"></divstatic
@@ -34,10 +34,9 @@
 				<!-- Sign in panel -->
 				  <form action="/wechatPayController/wechat_pay" method="post">
 					<div class="form-group">
-						<label class="custom-label" >用户名</label>
 						<input
 							autofocus="autofocus" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
-							placeholder="电话"/>
+							placeholder="电话" maxlength="11"/>
 					</div>
 					<div class="form-group">
 						<label class="custom-label">金额</label>
