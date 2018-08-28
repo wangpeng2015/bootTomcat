@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +36,7 @@ public class WechatCallbcak {
     @RequestMapping(value="/wechatPayCallback")
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED)
-    public void wechat_pay(HttpServletRequest request, HttpServletResponse response){
+    public void wechat_pay(ModelAndView modelAndView,HttpServletRequest request, HttpServletResponse response){
         log.info("微信服务器发来支付成功通知");
         InputStreamReader inputStreamReader;
         BufferedReader bufferedReader;
@@ -65,8 +66,10 @@ public class WechatCallbcak {
                   int money= Integer.valueOf(order.get("total_fee"));
                   //18元
 //                  if(1800==money){
+//                        int time=30;
 //                      mp4Service.updateUserTime(order.get("phoneNumber"));
 //                  }else if(18800==money){
+//                      int time=36500;
 //                      mp4Service.updateUserTime(order.get("phoneNumber"));
 //                  }
                     if(1==money){
@@ -77,6 +80,10 @@ public class WechatCallbcak {
                         mp4Service.updateUserTime(order.get("phoneNumber"),time);
                     }
                     log.info("=====================回调成功================");
+//                    modelAndView.setViewName("payBack");
+//                    modelAndView.addObject("result","支付成功");
+//                    modelAndView.addObject("order",order.get("trade_order"));
+//                    return  modelAndView;
                 }
             }
             bufferedReader.close();
@@ -84,6 +91,10 @@ public class WechatCallbcak {
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        modelAndView.setViewName("payBack");
+//        modelAndView.addObject("result","支付失败，请联系客户客服");
+//        modelAndView.addObject("order","");
+//        return  modelAndView;
 
     }
 }

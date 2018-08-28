@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Random;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,6 +47,10 @@ public class RedisAutoTest {
 
     @Test
     public void testaveFeedback(){
-        mp4Service.saveFeedback("18300247760","sdfhbsadfhbsadhfbasdf","2018-09-01 00:00:00");
+//        mp4Service.saveFeedback("18300247760","sdfhbsadfhbsadhfbasdf","2018-09-01 00:00:00");
+        for (int i=0;i<10;i++){
+            System.out.println(new Random().nextInt(2));
+        }
+
     }
 }

@@ -89,6 +89,28 @@ public class GooController {
         return modelAndView;
     }
 
+    /**
+     * 支付页面
+     * @return
+     */
+    @RequestMapping("/pay")
+    public ModelAndView pay(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("pay");
+        return modelAndView;
+    }
+
+    /**
+     * 支付页面
+     * @return
+     */
+    @RequestMapping("/payBackResult")
+    public ModelAndView payBackResult(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("payBackResult");
+        return modelAndView;
+    }
+
     @RequestMapping(value="/doLogin")
     @ResponseBody
     public Object loginIn(String name,String passwd,String uid,HttpServletRequest request){

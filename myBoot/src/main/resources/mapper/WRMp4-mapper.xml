@@ -93,7 +93,7 @@
 	</select>
 
 	<update id="updateMap4Order">
-		update mp4_order set status=0 WHERE trade_order=#{trade_order}
+		update mp4_order set status=1 WHERE trade_order=#{trade_order}
 	</update>
 
 	<update id="updateUserTime">

@@ -23,35 +23,12 @@
 		<div class="row">
 			<div class="col-lg-12"></div>
 			<div class="divider"></divstatic
-
 				<div class="col-sm-3"></div>
 			<div class="col-sm-6 custom-form-style">
 				<!--h1 class="centered" style="color: black;">Firecode.io is in Private Beta. <a href="/pages/landing">Request an invite</a> to get started!</h1-->
-				<p>&nbsp;</p>
-				<!-- Sign in panel -->
-				  <form action="/wechatPayController/wechat_pay" method="post">
-					<div class="form-group">
-						<label class="custom-label" >用户名</label>
-						<input
-							autofocus="autofocus" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
-							placeholder="电话"/>
-					</div>
-					<div class="form-group">
-						<label class="custom-label">金额</label>
-						<%--<select class="form-control"  name="money" id="money">
-							<option value="1800">18元/月</option>
-							<option value="18800">188/永久</option>
-						</select>--%>
-						<select class="form-control" name="money" id="money">
-							<option value="1">18元/月</option>
-							<option value="2">188/永久</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<input class="btn btn-success btn-lg btn-block"
-							   type="submit" id="BtnSubmit" value="充值" onclick="return check(this.from)"/>
-					</div>
-				  </form>
+				充值结果:${result}<br/>
+				流水号:${order}<br/>
+				请及时联系客服qq:
 			</div>
 		</div>
 	<!-- Row End -->

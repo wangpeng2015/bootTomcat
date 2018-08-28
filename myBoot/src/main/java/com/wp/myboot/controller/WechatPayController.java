@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,22 +31,22 @@ public class WechatPayController {
     @Resource
     private Mp4Service mp4Service;
 
-    @RequestMapping(value="/wechat_pay")
+    @PostMapping(value="/wechat_pay")
     @ResponseBody
     @Transactional(propagation = Propagation.REQUIRED)
-    public void wechat_pay(String userPhoneNumber,HttpServletRequest request,HttpServletResponse response){
-
+    public void wechat_pay(String userPhoneNumber,String money,HttpServletRequest request,HttpServletResponse response){
+        log.info("------wechat_pay------userPhoneNumber:"+userPhoneNumber+"----money:"+money);
         String ip=getIp(request);
         String key="2ddd253c7256045df0179b5627845d0e";//秘钥
         Map<String, String> params = new HashMap<String, String>();
         params.put("mch_id", "sl384hgf");//商户/
         params.put("out_trade_no",System.currentTimeMillis()+"");//商户订单
         params.put("body", "vip");//商品
-        params.put("total_fee", "1");//总价
+        params.put("total_fee", money);//总价
         params.put("spbill_create_ip", ip);//客户端ip
 //        params.put("notify_url", "http://640661.ichengyun.net:8088/gooSeNew/employeeController/updateCustomersDateEnd");//服务器通知地址
         params.put("notify_url", "http://640661.ichengyun.net:8081/wechatCallbcak/wechatPayCallback");
-        params.put("redirect_url", "http://640661.ichengyun.net:8081/gooController/uploadPicture");//前端跳转地址
+        params.put("redirect_url", "http://640661.ichengyun.net:8081/gooController/payBackResult");//前端跳转地址
         params.put("trade_type", "WX");//支付方式
 
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
