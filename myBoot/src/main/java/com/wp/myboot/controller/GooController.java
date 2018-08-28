@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -82,7 +84,7 @@ public class GooController {
      * 图片轮播上传界面
      * @return
      */
-        @RequestMapping("/uploadPicture")
+    @RequestMapping("/uploadPicture")
     public ModelAndView getUploadPicture(){
         ModelAndView modelAndView=new ModelAndView();
         modelAndView.setViewName("uploadPicture");
@@ -138,6 +140,7 @@ public class GooController {
      */
     @RequestMapping(value="/doSign")
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
     public JSONObject doSign(String phone, String passwd, String confirmPass, String code, String tuijianCode, HttpServletRequest request, HttpServletResponse response1){
         JSONObject obj = new JSONObject();
         if(StringUtils.isBlank(phone)){

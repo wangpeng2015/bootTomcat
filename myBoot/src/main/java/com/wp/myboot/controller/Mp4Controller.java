@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,6 +110,7 @@ public class Mp4Controller {
      */
     @RequestMapping(value = "/uploadMultipartFile", method={RequestMethod.POST})
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
     public Object uploadMultipartFile(@RequestParam(value = "file") List<MultipartFile> multipartFile,
                                       @RequestParam(value="filename1")String filename1,
                                       @RequestParam(value="fileContentType")String fileContentType,
@@ -164,6 +167,7 @@ public class Mp4Controller {
      */
     @RequestMapping(value = "/uploadPicture", method={RequestMethod.POST})
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
     public Object uploadPicture(@RequestParam(value = "file", required = false) MultipartFile multipartFile,
                                 @RequestParam(value="imgLink")String imgLink,
                                 HttpServletRequest request,HttpServletResponse response) {
@@ -205,6 +209,7 @@ public class Mp4Controller {
      */
     @RequestMapping(value="/saveFeedback")
     @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
     public JSONObject saveFeedback(String phoneNumber,String reason, String createTime,HttpServletRequest request){
         JSONObject obj = new JSONObject();
         Integer res=mp4Service.saveFeedback(phoneNumber,reason,createTime);
