@@ -9,6 +9,7 @@ import com.wp.myboot.service.Mp4Service;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +33,7 @@ public class Mp4Controller {
 
     private final Logger log = LoggerFactory.getLogger(Mp4Controller.class);
 
-    @Resource
+    @Autowired
     private Mp4Service mp4Service;
 
     @RequestMapping(value="/getMp4category")

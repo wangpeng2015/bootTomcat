@@ -36,6 +36,7 @@ public class WechatPayController {
     @Transactional(propagation = Propagation.REQUIRED)
     public void wechat_pay(String userPhoneNumber,String money,HttpServletRequest request,HttpServletResponse response){
         log.info("------wechat_pay------userPhoneNumber:"+userPhoneNumber+"----money:"+money);
+
         String ip=getIp(request);
         String key="2ddd253c7256045df0179b5627845d0e";//秘钥
         Map<String, String> params = new HashMap<String, String>();

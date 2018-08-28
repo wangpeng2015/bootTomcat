@@ -45,4 +45,6 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
     Integer updateMap4Order(@Param("trade_order")String trade_order);
 
     Integer updateUserTime(@Param("phoneNumber")String phoneNumber,@Param("time")int time);
+
+    Map<String,String> checkoutUser(@Param("phoneNumber")String phoneNumber);
 }

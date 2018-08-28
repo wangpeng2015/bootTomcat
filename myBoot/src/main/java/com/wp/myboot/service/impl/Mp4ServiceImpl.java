@@ -233,4 +233,15 @@ public class Mp4ServiceImpl implements Mp4Service {
     public Integer updateUserTime(String phoneNumber,int time) {
         return mp4Mapper.updateUserTime(phoneNumber,time);
     }
+
+    /**
+     * 检测是否存在该用户
+     * @param phoneNumber
+     * @return
+     */
+    @Override
+    public Map<String, String> checkoutUser(String phoneNumber) {
+        Map<String, String> map=mp4Mapper.checkoutUser(phoneNumber);
+        return map;
+    }
 }

@@ -99,4 +99,9 @@
 	<update id="updateUserTime">
 		update user_Se_new set recharge_money_endDate=DATE_ADD(NOW(),INTERVAL #{time} DAY),recharge_money_update_Date=NOW() where username=#{phoneNumber}
 	</update>
+
+    <select id="checkoutUser" resultType="java.util.Map">
+		SELECT username,create_date FROM  user_Se_new where username=#{phoneNumber} limit 1
+	</select>
+
 </mapper>

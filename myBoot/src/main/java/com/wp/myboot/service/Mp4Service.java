@@ -81,4 +81,11 @@ public interface Mp4Service {
      * @param phoneNumber
      */
     Integer updateUserTime(String phoneNumber,int time);
+
+    /**
+     * 检测是否存在该用户
+     * @param phoneNumber
+     * @return
+     */
+    Map<String,String> checkoutUser(String phoneNumber);
 }

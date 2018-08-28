@@ -21,10 +21,13 @@
 <body>
 	<div class="container content">
 		<div class="row">
-			<div class="col-lg-12"></div>
+			<div class="col-lg-12">
+                <a class="navbar-brand">
+                    小小播会员充值
+                </a>
+            </div>
 			<div class="divider"></divstatic
-
-				<div class="col-sm-3"></div>
+                <div class="col-sm-3"></div>
 			<div class="col-sm-6 custom-form-style">
 				<!--h1 class="centered" style="color: black;">Firecode.io is in Private Beta. <a href="/pages/landing">Request an invite</a> to get started!</h1-->
 				<p>&nbsp;</p>
@@ -75,5 +78,37 @@
             return false;
         }
     }
+
+    (function(){
+        $("#userPhoneNumber").bind("input propertychange",function(event){
+            var txt=$(this).val();
+            if(txt.length==11){
+                $.ajax({
+                    type:"post",
+                    url:"/userController/checkoutUser",
+                    data:{
+                        "phoneNumber":$("#userPhoneNumber").val(),
+                    },
+                    success:function(data){
+                        var code=data.code;
+                        var message=data.message;
+                        if(code=="200"){
+                            alert("您已经注册小小播，请放心充值");
+                        }else if(code=="300"){
+                            alert("抱歉，您还不是系统会员，请先注册");
+                        }else{
+                            alert("系统错误");
+                        }
+                    },
+                    error:function(){
+                        alert("后台错误");
+                    },
+                    complete:function(){
+                        console.log("complete");
+                    }
+                });
+            }
+        });
+    })()
 </script>
 </html>
