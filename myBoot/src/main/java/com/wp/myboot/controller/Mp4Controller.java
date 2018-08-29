@@ -185,7 +185,7 @@ public class Mp4Controller {
             InputStream input=multipartFile.getInputStream();
 
             FtpUtils ff=FtpUtils.getSftpUtil(Constants.Ichengyun_640661, Constants.Ichengyun_port, Constants.Ichengyun_userName, Constants.Ichengyun_password);
-            ff.uploadByStream("/web/java/apache-tomcat-gooSe-8088/webapps/videos", fileName, input);
+            ff.uploadByStream(Constants.Ichengyun_savePath, fileName, input);
 
 			/*把文件名字存起来*/
             springResult=mp4Service.saveFileNameMulNewImg(fileName,imgLink);

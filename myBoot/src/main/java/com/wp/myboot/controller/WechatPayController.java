@@ -41,7 +41,7 @@ public class WechatPayController {
         String ip=getIp(request);
         String key= Constants.wechat_key;//秘钥
         Map<String, String> params = new HashMap<String, String>();
-        params.put("mch_id", "sl384hgf");//商户/
+        params.put("mch_id", Constants.wechat_mch_id);//商户/
         params.put("out_trade_no",System.currentTimeMillis()+"");//商户订单
         params.put("body", "vip");//商品
         params.put("total_fee", money);//总价
