@@ -208,53 +208,52 @@ public class GooController {
      * @return
      */
     //@RequestMapping(value="/getYanZhengMa")
-    @ResponseBody
-    public JSONObject getYanZhengMa(String phoneNumber,HttpServletRequest request){
-        log.info("--------------获取验证码---------------");
-        JSONObject obj = new JSONObject();
-        if(StringUtils.isBlank(phoneNumber)  || phoneNumber.length()!=11){
-            obj.put("message","电话信息为空或者格式有问题");
-            obj.put("resultCode","300");
-            return obj;
-        }
-        //发短信
-        HttpSession session=request.getSession();
-        try {
-            //存session
-            int ran=(int)((Math.random()*9+1)*10000);
-            log.info("验证码--"+phoneNumber+"--"+ran);
-            Map<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("action", "send");
-            paramMap.put("userid", Constants.xishi_userid);
-            paramMap.put("account", Constants.xishi_account);
-            paramMap.put("password", Constants.xishi_password);
-            paramMap.put("mobile", phoneNumber.trim());
-            paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
-            paramMap.put("sendTime", "");
-            paramMap.put("extno", "");
-//			    response = SmsDemo.sendSms(phoneNumber,ran);
-            log.info("短信接口返回的数据----------------");
-            //查明细
-            String xml= HttpClient.doPostHp(Constants.url_xinshi,paramMap);
-			      /*返回状态值：成功返回Success 失败返回：Faild*/
-            String res= XmlUtil.getValueByNameXml(xml,"returnstatus");
-            log.info("------------------"+phoneNumber+"-------"+res+"-------------------------");
-            if("Success".equals(res)){
-                //session.setAttribute(phoneNumber, ran);
-                redisUtil.set(phoneNumber,String.valueOf(ran),Long.valueOf("300"));
-            }else{
-                log.info("短信发送失败");
-                obj.put("message","短信发送失败");
-                obj.put("resultCode","400");
-            }
-        } catch (Exception e) {
-            log.info("短信发送失败");
-            log.info(e.toString());
-            obj.put("message","短信发送失败");
-            obj.put("resultCode","400");
-        }
-        return obj;
-    }
+//    @ResponseBody
+//    public JSONObject getYanZhengMa(String phoneNumber,HttpServletRequest request){
+//        log.info("--------------获取验证码---------------");
+//        JSONObject obj = new JSONObject();
+//        if(StringUtils.isBlank(phoneNumber)  || phoneNumber.length()!=11){
+//            obj.put("message","电话信息为空或者格式有问题");
+//            obj.put("resultCode","300");
+//            return obj;
+//        }
+//        //发短信
+//        HttpSession session=request.getSession();
+//        try {
+//            //存session
+//            int ran=(int)((Math.random()*9+1)*10000);
+//            log.info("验证码--"+phoneNumber+"--"+ran);
+//            Map<String, Object> paramMap = new HashMap<String, Object>();
+//            paramMap.put("action", "send");
+//            paramMap.put("userid", Constants.xishi_userid);
+//            paramMap.put("account", Constants.xishi_account);
+//            paramMap.put("password", Constants.xishi_password);
+//            paramMap.put("mobile", phoneNumber.trim());
+//            paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
+//            paramMap.put("sendTime", "");
+//            paramMap.put("extno", "");
+//            log.info("短信接口返回的数据----------------");
+//            //查明细
+//            String xml= HttpClient.doPostHp(Constants.url_xinshi,paramMap);
+//			      /*返回状态值：成功返回Success 失败返回：Faild*/
+//            String res= XmlUtil.getValueByNameXml(xml,"returnstatus");
+//            log.info("------------------"+phoneNumber+"-------"+res+"-------------------------");
+//            if("Success".equals(res)){
+//                //session.setAttribute(phoneNumber, ran);
+//                redisUtil.set(phoneNumber,String.valueOf(ran),Long.valueOf("300"));
+//            }else{
+//                log.info("短信发送失败");
+//                obj.put("message","短信发送失败");
+//                obj.put("resultCode","400");
+//            }
+//        } catch (Exception e) {
+//            log.info("短信发送失败");
+//            log.info(e.toString());
+//            obj.put("message","短信发送失败");
+//            obj.put("resultCode","400");
+//        }
+//        return obj;
+//    }
 
 
     /**
