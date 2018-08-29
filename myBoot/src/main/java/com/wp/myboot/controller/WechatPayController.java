@@ -4,6 +4,7 @@ package com.wp.myboot.controller;
 import com.boot.commons.utils.DateUtil;
 import com.boot.commons.utils.MD5;
 import com.boot.commons.utils.SignUtils;
+import com.wp.myboot.common.Constants;
 import com.wp.myboot.controller.result.SpringResult;
 import com.wp.myboot.service.Mp4Service;
 import org.apache.commons.lang3.StringUtils;
@@ -38,24 +39,23 @@ public class WechatPayController {
         log.info("------wechat_pay------userPhoneNumber:"+userPhoneNumber+"----money:"+money);
 
         String ip=getIp(request);
-        String key="2ddd253c7256045df0179b5627845d0e";//秘钥
+        String key= Constants.wechat_key;//秘钥
         Map<String, String> params = new HashMap<String, String>();
         params.put("mch_id", "sl384hgf");//商户/
         params.put("out_trade_no",System.currentTimeMillis()+"");//商户订单
         params.put("body", "vip");//商品
         params.put("total_fee", money);//总价
         params.put("spbill_create_ip", ip);//客户端ip
-//        params.put("notify_url", "http://640661.ichengyun.net:8088/gooSeNew/employeeController/updateCustomersDateEnd");//服务器通知地址
-        params.put("notify_url", "http://640661.ichengyun.net:8081/wechatCallbcak/wechatPayCallback");
-        params.put("redirect_url", "http://640661.ichengyun.net:8081/gooController/payBackResult");//前端跳转地址
-        params.put("trade_type", "WX");//支付方式
+        params.put("notify_url", Constants.wechat_notify_url);
+        params.put("redirect_url", Constants.wechat_redirect_url);//前端跳转地址
+        params.put("trade_type", Constants.wechat_trade_type);//支付方式
 
         StringBuilder buf = new StringBuilder((params.size() + 1) * 10);
         SignUtils.buildPayParams(buf, params, false);
         String preStr = buf.toString();
         String signRecieve = MD5.sign(preStr, "&key=" + key, "utf-8");
         try {
-            String httUrl = "http://weixin.06302s.cn/platform/pay/unifiedorder/video?sign=" + signRecieve + "&" + preStr;
+            String httUrl = Constants.wechat_url + signRecieve + "&" + preStr;
             //保存订单
             mp4Service.saveOrder(userPhoneNumber,params.get("out_trade_no"),params.get("total_fee"), DateUtil.getCurrDate(DateUtil.FORMAT_ONE));
             //跳转
