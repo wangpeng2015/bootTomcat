@@ -142,7 +142,7 @@ public class Mp4Controller {
                     springResult.setResultCode("300");
                     return springResult;
                 }else{
-                    ff.uploadByStream("/web/java/apache-tomcat-gooSe-8088/webapps/videos", fileName, input);
+                    ff.uploadByStream(Constants.Ichengyun_savePath, fileName, input);
 					/*保存文件信息*/
                     //springResult=mp4Service.saveFileNameMul(randStr,fileType,fileContentType,randStr+"-"+fileName);
                 }
