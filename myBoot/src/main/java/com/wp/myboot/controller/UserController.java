@@ -1,6 +1,7 @@
 package com.wp.myboot.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.boot.commons.utils.DateUtil;
 import com.wp.myboot.service.Mp4Service;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,27 @@ public class UserController {
         }
         return obj;
     }
+
+    @RequestMapping(value = "/getUserExpiredTime")
+    @ResponseBody
+    public JSONObject getUserExpiredTime(String phoneNumber) {
+        JSONObject obj = new JSONObject();
+        Map<String, String> user = mp4Service.getUserExpiredTime(phoneNumber);
+        try {
+            if (user != null) {
+                obj.put("code", "200");
+                obj.put("result", user.get("recharge_money_endDate"));
+            } else {
+                obj.put("code", "300");
+                obj.put("result", "");
+            }
+        } catch (Exception e) {
+            obj.put("code", "400");
+            obj.put("result", "服务异常");
+        }
+
+        return obj;
+    }
+
 
 }

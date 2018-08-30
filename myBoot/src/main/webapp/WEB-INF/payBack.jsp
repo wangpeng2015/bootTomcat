@@ -19,38 +19,70 @@
 </head>
 
 <body>
-	<div class="container content">
-		<div class="row">
-			<div class="col-lg-12"></div>
-			<div class="divider"></divstatic
-				<div class="col-sm-3"></div>
+<div class="container content">
+	<div class="row">
+		<div class="col-lg-12">
+			<a class="navbar-brand">
+				小小播会员充值,请输入手机号码，检测是否成功
+			</a>
+		</div>
+		<div class="divider"></divstatic
+			<div class="col-sm-3"></div>
 			<div class="col-sm-6 custom-form-style">
 				<!--h1 class="centered" style="color: black;">Firecode.io is in Private Beta. <a href="/pages/landing">Request an invite</a> to get started!</h1-->
-				充值结果:${result}<br/>
-				流水号:${order}<br/>
-				请及时联系客服qq:
+				<p>&nbsp;</p>
+				<!-- Sign in panel -->
+				<div class="form-group">
+					<input
+							autofocus="autofocus" class="form-control" id="userPhoneNumber" name="userPhoneNumber"
+							placeholder="电话" maxlength="11"/>
+					<input
+							class="form-control" id="expiredTime" name="expiredTime"
+							placeholder="到期时间"/>
+				</div>
+				<div class="form-group">
+					<input class="btn btn-success btn-lg btn-block"
+						   type="button" id="BtnSubmit" value="检测" onclick="return check(this.from)"/>
+				</div>
 			</div>
 		</div>
-	<!-- Row End -->
+		<!-- Row End -->
 	</div>
 	<!--/ .container -->
-	</div>
-	<!--/ #headerwrap -->
+</div>
+<!--/ #headerwrap -->
 
-	</div>
+</div>
 </body>
 <script type="text/javascript">
-    function check(){
-        var phone=$("#userPhoneNumber").val();
-        if(phone.trim().length!=11){
-            alert("请输入正确手机号");
-            return false;
-        }
-        var ddd=$("#money").val();
-        if(ddd==""){
-            alert("请选择充值金额");
-            return false;
-        }
-    }
+    (function () {
+        $("#BtnSubmit").on("click", function () {
+            $.ajax({
+                type: "post",
+                url: "/userController/getUserExpiredTime",
+                data: {
+                    "phoneNumber": $("#userPhoneNumber").val(),
+                },
+                success: function (data) {
+                    var code = data.code;
+                    var result = data.result;
+                    if (code == "200") {
+                        $("#expiredTime").val("到期时间:" + result);
+                    } else if (code == "300") {
+                        $("#expiredTime").val("没有查询到该用户信息，请先注册");
+                    } else {
+                        $("#expiredTime").val("系统异常");
+                    }
+                },
+                error: function () {
+                    alert("后台错误");
+                },
+                complete: function () {
+                    console.log("complete");
+                }
+            });
+        })
+
+    })()
 </script>
 </html>

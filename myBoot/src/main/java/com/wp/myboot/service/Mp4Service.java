@@ -88,4 +88,12 @@ public interface Mp4Service {
      * @return
      */
     Map<String,String> checkoutUser(String phoneNumber);
+
+    /**
+     * 检测用户到期时间
+     *
+     * @param phoneNumber
+     * @return
+     */
+    Map<String, String> getUserExpiredTime(String phoneNumber);
 }

@@ -244,4 +244,10 @@ public class Mp4ServiceImpl implements Mp4Service {
         Map<String, String> map=mp4Mapper.checkoutUser(phoneNumber);
         return map;
     }
+
+    @Override
+    public Map<String, String> getUserExpiredTime(String phoneNumber) {
+        Map<String, String> map = mp4Mapper.getUserExpiredTime(phoneNumber);
+        return map;
+    }
 }

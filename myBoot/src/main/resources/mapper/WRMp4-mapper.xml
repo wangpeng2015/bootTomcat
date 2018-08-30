@@ -104,4 +104,8 @@
 		SELECT username,create_date FROM  user_Se_new where username=#{phoneNumber} limit 1
 	</select>
 
+	<select id="getUserExpiredTime" resultType="java.util.Map">
+		SELECT username,recharge_money_endDate FROM  user_Se_new where username=#{phoneNumber} limit 1
+	</select>
+
 </mapper>

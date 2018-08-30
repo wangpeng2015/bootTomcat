@@ -47,4 +47,6 @@ public interface Mp4Mapper extends CommonMapper<Log,Integer> {
     Integer updateUserTime(@Param("phoneNumber")String phoneNumber,@Param("time")int time);
 
     Map<String,String> checkoutUser(@Param("phoneNumber")String phoneNumber);
+
+    Map<String, String> getUserExpiredTime(@Param("phoneNumber") String phoneNumber);
 }
