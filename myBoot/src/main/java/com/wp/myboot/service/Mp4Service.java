@@ -68,7 +68,7 @@ public interface Mp4Service {
      * @param out_trade_no
      * @return
      */
-    Map<String,String> findMp4OrderInfo(String out_trade_no);
+    Map<String, String> findMp4OrderInfo(String out_trade_no, Integer status);
 
     /**
      * 更新订单时间

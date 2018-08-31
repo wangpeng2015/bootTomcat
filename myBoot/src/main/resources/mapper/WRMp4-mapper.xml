@@ -89,7 +89,12 @@
 	</insert>
 
 	<select id="findMp4OrderInfo" resultType="java.util.Map">
-		SELECT phoneNumber,trade_order,total_fee,status FROM  mp4_order where trade_order=#{tradeOrder} limit 1
+		SELECT phoneNumber,trade_order,total_fee,status FROM mp4_order where
+		trade_order=#{tradeOrder}
+		<if test="status!=null and status!=''">
+			and status=#{status}
+		</if>
+		limit 1
 	</select>
 
 	<update id="updateMap4Order">

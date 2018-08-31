@@ -211,8 +211,8 @@ public class Mp4ServiceImpl implements Mp4Service {
     }
 
     @Override
-    public Map<String, String> findMp4OrderInfo(String out_trade_no) {
-        Map<String, String> order=mp4Mapper.findMp4OrderInfo(out_trade_no);
+    public Map<String, String> findMp4OrderInfo(String out_trade_no, Integer status) {
+        Map<String, String> order = mp4Mapper.findMp4OrderInfo(out_trade_no, status);
         return order;
     }
 

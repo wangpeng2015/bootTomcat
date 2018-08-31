@@ -58,32 +58,32 @@ public class WechatCallbcak {
                 }
                 log.info("map集合:"+map.toString());
                 //查询出订单信息
-                Map<String,String>  order=mp4Service.findMp4OrderInfo(map.get("out_trade_no"));
+                Map<String, String> order = mp4Service.findMp4OrderInfo(map.get("out_trade_no"), null);
                 if(order!=null){
-                    //更新订单并且更该用户时间
-                  mp4Service.updateMap4Order(order.get("trade_order"));
-                  //判断重置金额
-                  int money= Integer.valueOf(order.get("total_fee"));
-                  //18元
-//                  if(1800==money){
-//                        int time=30;
-//                      mp4Service.updateUserTime(order.get("phoneNumber"));
-//                  }else if(18800==money){
-//                      int time=36500;
-//                      mp4Service.updateUserTime(order.get("phoneNumber"));
-//                  }
-                    if(1==money){
-                        int time=30;
-                        mp4Service.updateUserTime(order.get("phoneNumber"),time);
-                    }else if(2==money){
-                        int time=36500;
-                        mp4Service.updateUserTime(order.get("phoneNumber"),time);
+                    //判断订单是否已经支付成功
+                    Map<String, String> orderSuccess = mp4Service.findMp4OrderInfo(map.get("out_trade_no"), 1);
+                    if (orderSuccess == null || orderSuccess.isEmpty()) {
+                        //更新订单并且更该用户时间
+                        mp4Service.updateMap4Order(order.get("trade_order"));
+                        //判断重置金额
+                        int money = Integer.valueOf(order.get("total_fee"));
+                        //18元
+                        //                  if(1800==money){
+                        //                        int time=30;
+                        //                      mp4Service.updateUserTime(order.get("phoneNumber"));
+                        //                  }else if(18800==money){
+                        //                      int time=36500;
+                        //                      mp4Service.updateUserTime(order.get("phoneNumber"));
+                        //                  }
+                        if (1 == money) {
+                            int time = 30;
+                            mp4Service.updateUserTime(order.get("phoneNumber"), time);
+                        } else if (2 == money) {
+                            int time = 36500;
+                            mp4Service.updateUserTime(order.get("phoneNumber"), time);
+                        }
+                        log.info("=====================回调成功================");
                     }
-                    log.info("=====================回调成功================");
-//                    modelAndView.setViewName("payBack");
-//                    modelAndView.addObject("result","支付成功");
-//                    modelAndView.addObject("order",order.get("trade_order"));
-//                    return  modelAndView;
                 }
             }
             bufferedReader.close();
@@ -91,10 +91,6 @@ public class WechatCallbcak {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        modelAndView.setViewName("payBack");
-//        modelAndView.addObject("result","支付失败，请联系客户客服");
-//        modelAndView.addObject("order","");
-//        return  modelAndView;
 
     }
 }
