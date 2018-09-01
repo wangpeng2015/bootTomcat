@@ -67,21 +67,21 @@ public class WechatCallbcak {
                         mp4Service.updateMap4Order(order.get("trade_order"));
                         //判断重置金额
                         int money = Integer.valueOf(order.get("total_fee"));
-                        //18元
-                        //                  if(1800==money){
-                        //                        int time=30;
-                        //                      mp4Service.updateUserTime(order.get("phoneNumber"));
-                        //                  }else if(18800==money){
-                        //                      int time=36500;
-                        //                      mp4Service.updateUserTime(order.get("phoneNumber"));
-                        //                  }
-                        if (1 == money) {
-                            int time = 30;
-                            mp4Service.updateUserTime(order.get("phoneNumber"), time);
-                        } else if (2 == money) {
-                            int time = 36500;
-                            mp4Service.updateUserTime(order.get("phoneNumber"), time);
-                        }
+                          //18元
+                          if(1800==money){
+                                int time=30;
+                              mp4Service.updateUserTime(order.get("phoneNumber"),time);
+                          }else if(18800==money){
+                              int time=36500;
+                              mp4Service.updateUserTime(order.get("phoneNumber"),time);
+                          }
+//                        if (1 == money) {
+//                            int time = 30;
+//                            mp4Service.updateUserTime(order.get("phoneNumber"), time);
+//                        } else if (2 == money) {
+//                            int time = 36500;
+//                            mp4Service.updateUserTime(order.get("phoneNumber"), time);
+//                        }
                         log.info("=====================回调成功================");
                     }
                 }

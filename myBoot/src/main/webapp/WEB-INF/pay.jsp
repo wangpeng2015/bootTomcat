@@ -45,8 +45,8 @@
 							<option value="18800">188/永久</option>
 						</select>--%>
 						<select class="form-control" name="money" id="money">
-							<option value="1">18元/月</option>
-							<option value="2">188/永久</option>
+							<option value="1800">18元/月</option>
+							<option value="18800">188/永久</option>
 						</select>
 					</div>
 					<div class="form-group">
