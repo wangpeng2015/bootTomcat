@@ -1,7 +1,7 @@
 package com.wp.myboot.mapper;
 
-import com.boot.commons.entity.CommonMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 

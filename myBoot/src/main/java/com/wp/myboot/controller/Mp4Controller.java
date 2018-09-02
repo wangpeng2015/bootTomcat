@@ -123,7 +123,7 @@ public class Mp4Controller {
             Map<String,String> names=new HashMap<String, String>();
             for (MultipartFile file:multipartFile){
                 String fileName=file.getOriginalFilename();
-                String houzhui= com.boot.commons.utils.StringUtils.substringAfter(fileName,".");
+                String houzhui= StringUtils.substringAfter(fileName,".");
                 if(!StringUtils.isBlank(filename1)){
                     fileName=filename1+"."+houzhui;
                 }

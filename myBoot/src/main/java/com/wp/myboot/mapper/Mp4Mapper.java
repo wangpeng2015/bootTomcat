@@ -1,13 +1,10 @@
 package com.wp.myboot.mapper;
 
-import com.boot.commons.entity.CommonMapper;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
 
-@Mapper
 public interface Mp4Mapper extends CommonMapper<Log,Integer> {
 
 

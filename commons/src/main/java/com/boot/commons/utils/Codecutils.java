@@ -1,7 +1,6 @@
 package com.boot.commons.utils;
 
 import org.apache.commons.codec.binary.Base64;
-import org.springframework.web.util.pattern.PathPattern;
 
 public class Codecutils {
 

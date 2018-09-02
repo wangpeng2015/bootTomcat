@@ -191,23 +191,23 @@ public class FileUtils
 	 * @param isDirectory :true为返回目录名数组,false返回文件名数组
 	 * @return 返回目录名或文件名组成的数组
 	 */
-	private static final String[] list(String path, boolean isDirectory)
-	{
-		File directory = getDirectory(path);
-		if (directory == null)
-			return null;
-		int count = 0;
-		File files[] = directory.listFiles();
-		String temp[] = new String[files.length];
-		for (int i = 0; i < files.length; i++)
-			if (files[i].isDirectory() == isDirectory)
-			{
-				temp[count] = files[i].getName();
-				count++;
-			}
-
-		return CollectionUtils.cloneSubarray(temp, 0, count);
-	}
+//	private static final String[] list(String path, boolean isDirectory)
+//	{
+//		File directory = getDirectory(path);
+//		if (directory == null)
+//			return null;
+//		int count = 0;
+//		File files[] = directory.listFiles();
+//		String temp[] = new String[files.length];
+//		for (int i = 0; i < files.length; i++)
+//			if (files[i].isDirectory() == isDirectory)
+//			{
+//				temp[count] = files[i].getName();
+//				count++;
+//			}
+//
+//		return CollectionUtils.cloneSubarray(temp, 0, count);
+//	}
 
 	/**
 	 * 列出指定路径下的所有目录
@@ -215,10 +215,10 @@ public class FileUtils
 	 * @param path 指定路径
 	 * @return 返回目录名组成的数组
 	 */
-	public static final String[] listDirectorys(String path)
-	{
-		return list(path, true);
-	}
+//	public static final String[] listDirectorys(String path)
+//	{
+//		return list(path, true);
+//	}
 
 	/**
 	 * 列出指定路径下的所有文件
@@ -226,10 +226,10 @@ public class FileUtils
 	 * @param path 指定路径
 	 * @return 返回文件名组成的数组
 	 */
-	public static final String[] listFiles(String path)
-	{
-		return list(path, false);
-	}
+//	public static final String[] listFiles(String path)
+//	{
+//		return list(path, false);
+//	}
 
 	/**
 	 * 列出指定路径下的所有目录和文件

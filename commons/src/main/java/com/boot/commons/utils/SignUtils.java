@@ -8,11 +8,11 @@
 
 package com.boot.commons.utils;
 
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.springframework.util.StringUtils;
 import org.xml.sax.InputSource;
 
 import java.io.StringReader;
@@ -131,7 +131,7 @@ public class SignUtils {
                 }
                 sb.append("&");
         	}else{
-        		if(!StringUtils.isEmpty(payParams.get(key))){
+        		if(!StringUtils.isBlank(payParams.get(key))){
         			sb.append(key).append("=");
                     if(encoding){
                         sb.append(urlEncode(payParams.get(key)));

@@ -2,13 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>bootTomcat.demo</groupId>
         <artifactId>bootTomcat.demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
-    <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.wp</groupId>
     <artifactId>wp.commons</artifactId>
@@ -16,43 +17,32 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+            <version>1.2.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
-            <version>RELEASE</version>
+            <version>3.6</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-core</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
-            <version>RELEASE</version>
+            <version>0.1.54</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
         <dependency>
@@ -86,10 +76,7 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -143,9 +130,12 @@
             <artifactId>commons-dbutils</artifactId>
             <version>1.6</version>
         </dependency>
+
+        <!-- MySQL 连接驱动依赖 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
@@ -175,9 +165,42 @@
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <!--家在本地aliyun两个配置文件  -->
+        <dependency>
+            <groupId>com.aliyuncs</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.3.1</version>
+            <!-- <type>ja"lib/aliyun-java-sdk-core-3.3.1.jar"r</type>
+            <scope>system</scope>
+            <version>3.3.1</version>
+            <systemPath>${basedir}/lib/aliyun-java-sdk-core-3.3.1.jar</systemPath> -->
+            <!-- mvn install:install-file -Dfile=aliyun-java-sdk-core-3.3.1.jar -DgroupId=com.aliyuncs -DartifactId=aliyun-java-sdk-core -Dversion=3.3.1 -Dpackaging=jar -->
+        </dependency>
+
+        <dependency>
+            <groupId>com.aliyuncs.dysmsapi</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.0.0</version>
+            <!-- <type>jar</type>
+            <scope>system</scope>
+            <version>1.0.0</version>
+            <systemPath>${basedir}/lib/aliyun-java"lib/aliyun-java-sdk-core-3.3.1.jar"-sdk-dysmsapi-1.0.0.jar</systemPath> -->
+            <!-- mvn install:install-file -Dfile=aliyun-java-sdk-dysmsapi-1.0.0.jar -DgroupId=com.aliyuncs.dysmsapi -DartifactId=aliyun-java-sdk-dysmsapi -Dversion=1.0.0 -Dpackaging=jar -->
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
     </dependencies>

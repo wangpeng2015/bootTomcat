@@ -6,9 +6,10 @@
  * @date 2014年11月15日  14:58:34
  * @version V1.0   
  */
-package com.boot.commons.entity;
+package com.wp.myboot.mapper;
 
 
+import com.boot.commons.entity.PageCond;
 import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;

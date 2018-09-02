@@ -1,10 +1,7 @@
 package com.wp.myboot.mapper;
 
-import com.boot.commons.entity.CommonMapper;
 import com.wp.myboot.entity.UserSeNew;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,7 +10,6 @@ import java.util.List;
  *
  * Created by xuxueli on '2018-08-03 13:10:22'.
  */
-@Mapper
 public interface UserSeNewMapper extends CommonMapper<Log,Integer> {
 
     /**
