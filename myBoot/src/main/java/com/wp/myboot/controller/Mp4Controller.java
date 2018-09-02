@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -103,7 +102,7 @@ public class Mp4Controller {
     }
 
     /**
-     * 上传linux地址(多文件上传)
+     * 上传linux地址(多文件上传) 视频图片
      * @param multipartFile
      * @param fileContentType
      * @param request
@@ -160,6 +159,49 @@ public class Mp4Controller {
     }
 
     /**
+     * 上传linux地址 图片
+     * @param multipartFile
+     * @param fileContentType
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/uploadImg", method={RequestMethod.POST})
+    @ResponseBody
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Object uploadImg(@RequestParam(value = "file") MultipartFile multipartFile,
+                                      @RequestParam(value="filename1",required = false)String filename1,
+                                      @RequestParam(value="fileContentType")String fileContentType,
+                                      HttpServletRequest request, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        SpringResult springResult = new SpringResult();
+        String randStr=RandomUtil.generateString(3);
+        try {
+            String fileName=multipartFile.getOriginalFilename();
+            if(StringUtils.isNotBlank(filename1)) {
+                fileName = filename1;
+            }
+            InputStream input=multipartFile.getInputStream();
+
+            FtpUtils ff=FtpUtils.getSftpUtil(Constants.Ichengyun_640661, Constants.Ichengyun_port, Constants.Ichengyun_userName, Constants.Ichengyun_password);
+            ff.uploadByStream(Constants.Ichengyun_saveImgPath, randStr+"-"+fileName, input);
+            /*把文件名字存起来*/
+            Integer res=mp4Service.saveuploadImg(fileContentType,randStr+"-"+fileName);
+            if(res>0){
+                springResult.setMessage("上传成功");
+                springResult.setResultCode("200");
+            }else{
+                springResult.setMessage("上传失败");
+                springResult.setResultCode("300");
+            }
+        }catch (Exception e){
+            log.error("多文件上传错误"+e);
+            springResult.setMessage("上传失败");
+            springResult.setResultCode("300");
+        }
+        return springResult;
+    }
+
+    /**
      * 上传linux地址 图片轮播
      * @param multipartFile
      * @param imgLink
@@ -197,6 +239,15 @@ public class Mp4Controller {
             springResult.setMessage("上传失败");
             springResult.setResultCode("200");
         }
+        return springResult;
+    }
+
+
+    @RequestMapping(value="/getPicture")
+    @ResponseBody
+    public Object getPicture(Integer pageStart, Integer pageSize){
+        SpringResult springResult = new SpringResult();
+        springResult=mp4Service.getPicture(pageStart,pageSize);
         return springResult;
     }
 

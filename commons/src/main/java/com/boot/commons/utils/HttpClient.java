@@ -1,6 +1,5 @@
 package com.boot.commons.utils;
 
-import net.sf.json.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -362,20 +361,20 @@ public class HttpClient {
     }
     
 
-   public static JSONObject httpPostWithJSON(String url, String json) throws Exception {
-    	String encoderJson = URLEncoder.encode(json, HTTP.UTF_8);
-    	//----1、
-    	HttpPost request = new HttpPost(url);
-    	// 绑定到请求 Entry
-    	StringEntity se = new StringEntity(encoderJson);
-    	request.setEntity(se);
-    	request.setHeader("Content-Type", "application/json;charset=UTF-8");
-    	// 发送请求
-    	HttpResponse httpResponse = new DefaultHttpClient().execute(request);
-    	// 得到应答的字符串，这也是一个 JSON 格式保存的数据
-    	String retSrc = EntityUtils.toString(httpResponse.getEntity());
-    	// 生成 JSON 对象
-    	return JSONObject.fromObject(retSrc);
-    }
+//   public static JSONObject httpPostWithJSON(String url, String json) throws Exception {
+//    	String encoderJson = URLEncoder.encode(json, HTTP.UTF_8);
+//    	//----1、
+//    	HttpPost request = new HttpPost(url);
+//    	// 绑定到请求 Entry
+//    	StringEntity se = new StringEntity(encoderJson);
+//    	request.setEntity(se);
+//    	request.setHeader("Content-Type", "application/json;charset=UTF-8");
+//    	// 发送请求
+//    	HttpResponse httpResponse = new DefaultHttpClient().execute(request);
+//    	// 得到应答的字符串，这也是一个 JSON 格式保存的数据
+//    	String retSrc = EntityUtils.toString(httpResponse.getEntity());
+//    	// 生成 JSON 对象
+//    	return JSONObject.fromObject(retSrc);
+//    }
 	
 }

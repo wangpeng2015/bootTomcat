@@ -1,7 +1,6 @@
 package com.wp.myboot.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wp.myboot.controller.TestBootController;
 import com.wp.myboot.controller.result.SpringResult;
 import com.wp.myboot.mapper.Mp4Mapper;
 import com.wp.myboot.service.Mp4Service;
@@ -10,14 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class Mp4ServiceImpl implements Mp4Service {
 
-    private final Logger log = LoggerFactory.getLogger(Mp4ServiceImpl.class);
+    private final Logger log = LoggerFactory.getLogger(com.wp.myboot.service.impl.Mp4ServiceImpl.class);
 
     @Autowired
     private Mp4Mapper mp4Mapper;
@@ -37,7 +35,7 @@ public class Mp4ServiceImpl implements Mp4Service {
     }
 
     @Override
-    public SpringResult findMp4_data(String type,String name, Integer pageStart, Integer pageSize) {
+    public SpringResult findMp4_data(String type, String name, Integer pageStart, Integer pageSize) {
         SpringResult springResult = new SpringResult();
         JSONObject object=new JSONObject();
         List<Map<String, String>> res=mp4Mapper.findMp4_data(type,name,pageStart,pageSize);
@@ -108,7 +106,7 @@ public class Mp4ServiceImpl implements Mp4Service {
     }
 
     @Override
-    public SpringResult saveFileNameMul(String randStr,String fileType, String fileContentType, String fileName) {
+    public SpringResult saveFileNameMul(String randStr, String fileType, String fileContentType, String fileName) {
         SpringResult springResult = new SpringResult();
         try {
             Integer res=mp4Mapper.saveFileNameMul(randStr,fileType,fileContentType,fileName);
@@ -249,5 +247,46 @@ public class Mp4ServiceImpl implements Mp4Service {
     public Map<String, String> getUserExpiredTime(String phoneNumber) {
         Map<String, String> map = mp4Mapper.getUserExpiredTime(phoneNumber);
         return map;
+    }
+
+    /**
+     * 上传图片
+     * @param fileContentType
+     * @param fileName
+     * @return
+     */
+    @Override
+    public Integer saveuploadImg(String fileContentType, String fileName) {
+        Integer res=mp4Mapper.saveuploadImg(fileContentType,fileName);
+        if(res>0){
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
+    /**
+     * 获取图片列表
+     * @param pageStart
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public SpringResult getPicture(Integer pageStart, Integer pageSize) {
+        SpringResult springResult = new SpringResult();
+        JSONObject object=new JSONObject();
+        List<Map<String, String>> list = mp4Mapper.getPicture(pageStart,pageSize);
+        object.put("list", list);
+        /*总条数*/
+        Integer totalCount=mp4Mapper.getPictureCount();
+        object.put("totalCount", totalCount);
+        if(object!=null){
+            springResult.setResult(object);
+            springResult.setResultCode("200");
+        }else {
+            springResult.setResult(null);
+            springResult.setResultCode("300");
+        }
+        return springResult;
     }
 }

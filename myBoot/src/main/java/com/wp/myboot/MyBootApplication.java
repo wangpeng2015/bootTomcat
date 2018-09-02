@@ -1,5 +1,6 @@
 package com.wp.myboot;
 
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -12,7 +13,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement//开启事物
 public class MyBootApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(MyBootApplication.class, args);
+		SpringApplication application = new SpringApplication(MyBootApplication.class);
+		application.setBannerMode(Banner.Mode.OFF);
+		application.run(args);
 	}
 
 }

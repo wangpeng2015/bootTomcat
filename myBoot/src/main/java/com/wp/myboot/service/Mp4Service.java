@@ -2,7 +2,6 @@ package com.wp.myboot.service;
 
 import com.wp.myboot.controller.result.SpringResult;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ public interface Mp4Service {
 
     SpringResult getMp4_category();
 
-    SpringResult findMp4_data(String type,String name, Integer pageStart, Integer pageSize);
+    SpringResult findMp4_data(String type, String name, Integer pageStart, Integer pageSize);
 
     SpringResult findMp4Novel();
 
@@ -26,7 +25,7 @@ public interface Mp4Service {
      */
     SpringResult getImgLink();
 
-    SpringResult saveFileNameMul(String randStr,String fileType, String fileContentType, String fileName);
+    SpringResult saveFileNameMul(String randStr, String fileType, String fileContentType, String fileName);
 
 
     SpringResult saveFileNameMulNew(String fileContentType, String video, String s, String pic, String s1);
@@ -53,7 +52,7 @@ public interface Mp4Service {
      * @param phoneNumber
      * @return
      */
-    Integer saveFeedback(String phoneNumber,String reason,String createTime);
+    Integer saveFeedback(String phoneNumber, String reason, String createTime);
 
     /**
      * 保存订单流水
@@ -61,7 +60,7 @@ public interface Mp4Service {
      * @param total_fee
      * @param currDate
      */
-    Integer saveOrder(String phoneNumber,String out_trade_no, String total_fee, String currDate);
+    Integer saveOrder(String phoneNumber, String out_trade_no, String total_fee, String currDate);
 
     /**
      * 发现订单
@@ -80,7 +79,7 @@ public interface Mp4Service {
      * 更新用户时间
      * @param phoneNumber
      */
-    Integer updateUserTime(String phoneNumber,int time);
+    Integer updateUserTime(String phoneNumber, int time);
 
     /**
      * 检测是否存在该用户
@@ -96,4 +95,18 @@ public interface Mp4Service {
      * @return
      */
     Map<String, String> getUserExpiredTime(String phoneNumber);
+
+    /**
+     * 上传图片
+     * @param fileContentType
+     * @param fileName
+     * @return
+     */
+    Integer saveuploadImg(String fileContentType, String fileName);
+
+    /**
+     * 获取图片
+     * @return
+     */
+    SpringResult getPicture(Integer pageStart, Integer pageSize);
 }

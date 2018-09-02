@@ -22,6 +22,7 @@
 1.1Spring的@Bean注解用于告诉方法，产生一个Bean对象，然后这个Bean对象交给Spring管理
 2.@Bean 用在方法上，告诉Spring容器，你可以从下面这个方法中拿到一个Bean
 @Bean
+@Bean配置方法上表明当前方法返回一个Bean
 
 
 //其中@Order注解表示执行过滤顺序，值越小，越先执行
@@ -77,3 +78,46 @@ spring.mvc.view.suffix:.jsp
 
 3、打包成war包启动
 nohup java -jar xxx.war
+
+
+@GetMapping =>
+    @RequestMapping(value = "/xxx",method = RequestMethod.GET)
+@PostMapping =>
+    @RequestMapping(value = "/xxx",method = RequestMethod.POST)
+@PutMapping =>
+    @RequestMapping(value = "/xxx",method = RequestMethod.PUT)
+@DeleteMapping =>
+    @RequestMapping(value = "/xxx",method = RequestMethod.DELETE)
+
+
+
+
+1）@Valid + BindingResult
+首先，使用一个Java Bean来接收前端提交的数据。在这个Java Bean之前加上@Valid，在这个Java Bean之后加上BindingResult（BindingResult参数必须紧跟在@Valid参数之后。）
+
+/**
+ * 添加一个女生
+ */
+@PostMapping(value = "/girls")
+public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+        return ResultUtils.error(-1, bindingResult.getFieldError().getDefaultMessage());
+    }
+    return ResultUtils.success(girlRespository.save(girl));
+}
+
+2）设置校验规则
+然后，需要在@Valid注解的Java Bean中，使用各种”规则注解”对其中的属性进行校验规则的设定。示例如下：
+
+public class Girl {
+
+    private Integer id;
+
+    @NotBlank(message = "这个字段必传")
+    private String cupSize;
+
+    @Min(value = 18, message = "未成年少女禁止入内")
+    private Integer age;
+
+    @NotNull(message = "金额必传")
+    private Double money;

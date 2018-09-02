@@ -113,4 +113,19 @@
 		SELECT username,recharge_money_endDate FROM  user_Se_new where username=#{phoneNumber} limit 1
 	</select>
 
+	<insert id="saveuploadImg">
+		insert into mp4_Img (fileContentType,fileName) values (#{fileContentType},#{fileName})
+	</insert>
+
+
+	<select id="getPicture" resultType="java.util.Map">
+		select fileContentType,fileName from mp4_Img
+		limit ${pageStart},${pageSize}
+	</select>
+
+	<select id="getPictureCount" resultType="integer">
+		select count(1) from mp4_Img
+	</select>
+
+
 </mapper>

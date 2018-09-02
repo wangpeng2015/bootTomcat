@@ -1,7 +1,6 @@
 package com.wp.myboot.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.boot.commons.utils.HttpClient;
 import com.boot.commons.utils.XmlUtil;
 import com.wp.myboot.RedisSessionConfig.RedisUtil;
@@ -14,6 +13,7 @@ import com.wp.myboot.service.UserSeNewService;
 import com.wp.myboot.sms_253.ChuangLanSmsUtil;
 import com.wp.myboot.sms_253.request.SmsSendRequest;
 import com.wp.myboot.sms_253.response.SmsSendResponse;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,6 +69,25 @@ public class GooController {
     @RequestMapping("/upLoad")
     public ModelAndView getUploadJsp(ModelAndView modelAndView){
           modelAndView.setViewName("upload");
+//        List<Map<String, String>> list = Lists.newArrayList();
+//        Map<String, String> map=new HashMap<String, String>();
+//        map.put("type_id","123");
+//        map.put("name","123");
+//        list.add(map);map
+
+        List<Map<String, String>> list=mp4Service.getCateType();
+        modelAndView.addObject("movieList",list);
+        return modelAndView;
+    }
+
+
+    /**
+     * 文件上传界面
+     * @return
+     */
+    @RequestMapping("/upLoadImg")
+    public ModelAndView upLoadImg(ModelAndView modelAndView){
+        modelAndView.setViewName("uploadImg");
 //        List<Map<String, String>> list = Lists.newArrayList();
 //        Map<String, String> map=new HashMap<String, String>();
 //        map.put("type_id","123");
