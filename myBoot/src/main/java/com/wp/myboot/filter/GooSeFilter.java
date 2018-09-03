@@ -24,8 +24,6 @@ public class GooSeFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         log.info("GooSeFilter>>>doFilter");
-        // 处理响应乱码
-        servletResponse.setContentType("text/html;charset=utf-8");
         // 注意：放行的时候应该传入增强后的request对象
         filterChain.doFilter(servletRequest,servletResponse);
     }

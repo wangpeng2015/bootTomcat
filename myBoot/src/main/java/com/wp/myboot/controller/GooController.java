@@ -1,6 +1,7 @@
 package com.wp.myboot.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.boot.commons.utils.DateUtil;
 import com.boot.commons.utils.HttpClient;
 import com.boot.commons.utils.XmlUtil;
 import com.wp.myboot.RedisSessionConfig.RedisUtil;
@@ -28,10 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value="/gooController")
@@ -305,13 +303,13 @@ public class GooController {
             log.info("--------------------------------------------------------------------------------------------------");
             if(time>Constants.startTime && time<Constants.endTime){
                 Map<String, Object> paramMap = new HashMap<String, Object>();
-                paramMap.put("action", "send");
+                paramMap.put("action", Constants.xishi_send);
                 paramMap.put("userid", Constants.xishi_userid);
                 paramMap.put("account", Constants.xishi_account);
                 paramMap.put("password", Constants.xishi_password);
                 paramMap.put("mobile", phoneNumber.trim());
                 paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
-                paramMap.put("sendTime", "");
+                paramMap.put("sendTime",DateUtil.formatDateTime(new Date(),DateUtil.FORMAT_ONE));
                 paramMap.put("extno", "");
 //			    response = SmsDemo.sendSms(phoneNumber,ran);
                 log.info("短信接口返回的数据----------------");
