@@ -207,7 +207,7 @@ public class GooController {
             return obj;
         }else if(res==-2){
             obj.put("message","该用户已经注册");
-            obj.put("resultCode","300");
+            obj.put("resultCode", "400");
             return obj;
         }else{
             obj.put("message","注册失败");
@@ -301,15 +301,16 @@ public class GooController {
             Calendar cal=Calendar.getInstance();
             int time=cal.get(Calendar.HOUR_OF_DAY);
             log.info("--------------------------------------------------------------------------------------------------");
-            if(time>Constants.startTime && time<Constants.endTime){
+            if (time > Constants.endTime) {
                 Map<String, Object> paramMap = new HashMap<String, Object>();
                 paramMap.put("action", Constants.xishi_send);
                 paramMap.put("userid", Constants.xishi_userid);
                 paramMap.put("account", Constants.xishi_account);
                 paramMap.put("password", Constants.xishi_password);
                 paramMap.put("mobile", phoneNumber.trim());
-                paramMap.put("content", "【小小播】尊敬的用户,验证码为:"+ran+",该验证码5分钟之内有效");
-                paramMap.put("sendTime",DateUtil.formatDateTime(new Date(),DateUtil.FORMAT_ONE));
+                paramMap.put("content", "【小小播】尊敬的用户,验证码为:" + ran + ",该验证码10分钟之内有效");
+//                paramMap.put("sendTime",DateUtil.formatDateTime(new Date(),DateUtil.FORMAT_ONE));
+                paramMap.put("sendTime", "");
                 paramMap.put("extno", "");
 //			    response = SmsDemo.sendSms(phoneNumber,ran);
                 log.info("短信接口返回的数据----------------");
@@ -320,7 +321,7 @@ public class GooController {
                 log.info("------------------"+phoneNumber+"-------"+res+"-------------------------");
                 if("Success".equals(res)){
                     session.setAttribute(phoneNumber, ran);
-                    redisUtil.set(phoneNumber,String.valueOf(ran),Long.valueOf("300"));
+                    redisUtil.set(phoneNumber, String.valueOf(ran), Long.valueOf("600"));
                 }else{
                     log.info("短信发送失败");
                     obj.put("message","短信发送失败");

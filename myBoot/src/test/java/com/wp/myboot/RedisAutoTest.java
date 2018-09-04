@@ -41,7 +41,10 @@ public class RedisAutoTest {
 //        Assert.assertEquals("bigz",stringRedisTemplate.opsForValue().get("zzp"));
 
         //10秒
-        redisUtil.set("name","wangpeng",Long.valueOf("60"));
+        String syt = (String) redisUtil.get("18300247760");
+        System.out.println(syt);
+
+
     }
 
 
